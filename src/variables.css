@@ -1,7 +1,15 @@
 :root {
-    font-size: 16px;
+    /* Sizing */
     --content-max-width: 1140px;
     --spacing:1.25rem;
     --slider-width: 50rem;
     --slider-height: 30rem;
+
+    /* Colors */
+    --body-text: #bdbdbd;
+
+    /* Base styles */
+    font-size: 16px;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
 }
