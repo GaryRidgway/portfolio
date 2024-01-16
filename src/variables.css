@@ -6,10 +6,10 @@
     --slider-height: 30rem;
 
     /* Colors */
-    --body-text: #bdbdbd;
+    --body-text: #cacaca;
 
     /* Base styles */
     font-size: 16px;
-    font-family: 'Playfair Display', serif;
-    letter-spacing: 1px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
 }

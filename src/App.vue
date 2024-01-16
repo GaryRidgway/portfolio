@@ -1,10 +1,22 @@
 <script setup>
-import Comparison from './components/Comparison.Vue';
-import Display from './components/Display.vue';
+// import Comparison from './components/Comparison.Vue';
+// import Display from './components/Display.vue';
+import Gallery from './components/Gallery.vue';
 </script>
 
 <template>
-  <Display title="the monument to the scarlet moon" w="400px" h="600px">
+  <Gallery
+    galleryID="ExampleID"
+    :works="images"
+  >
+  </Gallery>
+  <!-- <Display
+    title="the monument to the scarlet moon"
+    galleryID="ExampleID"
+    w="400px"
+    h="600px"
+    :works="images"
+  >
     <template v-slot:case>
       <iframe scrolling="no" src="https://garyridgway.github.io/ShipGame/"></iframe>
     </template>
@@ -27,7 +39,7 @@ import Display from './components/Display.vue';
         Remade kind Thror lets. She-Elf rides iron.
       </p>
     </template>
-  </Display>
+  </Display> -->
   <!-- <Comparison></Comparison> -->
 </template>
 
@@ -46,3 +58,68 @@ import Display from './components/Display.vue';
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }</style>
+
+<script>
+export default {
+  name: 'App',
+  components: {
+    Gallery,
+  },
+  data() {
+    return {
+      images: [
+        {
+          title: 'game',
+          width: 400,
+          height: 600,
+          containerMod: {
+            width: 0,
+            height: 4
+          },
+          type: 'true-iframe',
+          largeURL:
+            'https://garyridgway.github.io/ShipGame/',
+          thumbnailURL:
+            'https://cdn.photoswipe.com/photoswipe-demo-images/photos/map-thumb.png',
+        },
+        {
+          title: 'gMap',
+          type: 'google-map',
+          largeURL:
+            'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d325518.68780316407!2d30.252511957059642!3d50.4016990487754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cf4ee15a4505%3A0x764931d2170146fe!2z0JrQuNC10LIsIDAyMDAw!5e0!3m2!1sru!2sua!4v1647422169265!5m2!1sru!2sua" href="https://maps.google.com/maps?ll=50.402036,30.532691&z=10&t=m&mapclient=embed&q=%D0%9A%D0%B8%D0%B5%D0%B2%2002000',
+          thumbnailURL:
+            'https://cdn.photoswipe.com/photoswipe-demo-images/photos/map-thumb.png',
+        },
+        {
+          title: 'img1',
+          largeURL:
+            'https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-2500.jpg',
+          thumbnailURL:
+            'https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-400.jpg',
+          width: 1875,
+          height: 2500,
+        },
+        {
+          title: 'img2',
+          largeURL:
+            'https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg',
+          thumbnailURL:
+            'https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-200.jpg',
+          width: 1669,
+          height: 2500,
+        },
+        {
+          title: 'img3',
+          largeURL:
+            'https://cdn.photoswipe.com/photoswipe-demo-images/photos/3/img-2500.jpg',
+          thumbnailURL:
+            'https://cdn.photoswipe.com/photoswipe-demo-images/photos/3/img-200.jpg',
+          width: 2500,
+          height: 1666,
+        },
+      ],
+    };
+  },
+};
+</script>
+
