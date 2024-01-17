@@ -1,7 +1,11 @@
 <template>
     <div class="display">
         <div class="content">
+            <div class="decorative-title">{{ title }}</div>
             <h1 v-if="title" class="title" >{{ title }}</h1>
+            <span class="detail date">{{ date }}</span>
+            <span class="detail size">{{ size }}</span>
+            <span class="detail medium">{{ medium }}</span>
             <div class="statement">
                 <slot name="statement"></slot>
             </div> 
@@ -26,14 +30,32 @@
       }
     }
 
+    .detail {
+      display: block;
+      text-align: right;
+      letter-spacing: 7px;
+      color: #ffffff8a;
+    }
+
+    .decorative-title {
+      font-family: 'Cinzel Decorative', serif;
+      position: absolute;
+      z-index: -2;
+      font-size: 9rem;
+      line-height: 0.8;
+      opacity: 0.2;
+      width: 100%;
+      letter-spacing: 1rem;
+    }
+
     .title {
       margin-top: 0;
-      margin-block-end: 1.8rem;
-      padding-bottom: 0.4rem;
+      margin-block-end: 0.5rem;
+      padding-bottom: 0.5rem;
       font-family: 'Cinzel Decorative', serif;
       text-align: right;
       position: relative;
-      --half-height: 2px;
+      letter-spacing: 0.5rem;
 
       &:before {
         content: "";
@@ -41,11 +63,10 @@
         background: transparent;
         position: absolute;
         width: 100%;
-        height: 2px;
+        height: 1px;
         right: 0;
         bottom: 0;
-        background: white;
-        opacity: 0.5;
+        background: var(--border-color);
       }
     }
 
@@ -59,12 +80,14 @@
     }
 
     .content {
-
-        flex-basis: 61.8%;
+      flex-basis: 61.8%;
     }
 
     .statement {
-        
+      margin-top: 1.5rem;
+      padding: var(--spacing);
+      border: 1px solid var(--border-color);
+      background: var(--textblock-bg);
     }
 }
 </style>
@@ -74,6 +97,9 @@ export default {
   name: 'Display',
   props: {
     title: String,
+    medium: String,
+    size: String,
+    date: String
 },
   methods: {},
 };

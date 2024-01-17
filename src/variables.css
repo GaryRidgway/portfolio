@@ -8,6 +8,8 @@
 
     /* Colors */
     --body-text: #cacaca;
+    --border-color: rgb(255 255 255 / 43%);
+    --textblock-bg: rgb(0 0 0 / 13%);
 
     /* Base styles */
     font-size: 18px;

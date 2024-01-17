@@ -110,6 +110,7 @@ nextTick(() => {
   appearance: none;
   z-index: 2;
   transition: all 200ms linear;
+  cursor: ew-resize;
 }
 .image-slider-container .range-slider::-webkit-slider-thumb {
   -webkit-appearance: none;

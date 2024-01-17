@@ -11,25 +11,32 @@ import Background from './components/Background.vue';
   />
 
   <Display
-    title="the rage"
+    title="RaGe"
+    medium="Ink on paper"
+    size="4 inches by 6 inches"
+    date="Completed 01/15/2024"
   >
     <template v-slot:statement>
       <p>
-        Visiting wheels Greyhame washing mud bay council somewhere glad longer were step. Pass solitude dared glass
-        weather shines abomination darling Lake-men? Reforge champion count lived betrayed password tread Bag-end. Weather
-        Eärendil markets poring. One Ring to rule them all. Stinks dwelt Probably. Hide moments send written succumb Dori
-        dim. Smile dreams Boffins fast gut ranges bow must.
-        Filleting teeming crime foolish crops Goblins 14? Chief pointy-ear Probably helps statute head shelter fond?
-        Happen elevenses goats tired ancestor reflection Sounds slightest. Tools committees means behaving Goblin-town are
-        masters? Steal pulling hunt appear Hornblowers plan's hazel? Many that live deserve death. Some that die deserve
-        life. Thin spawning 16 should've together sails drinking uniting afford Myrtle. Pints rejoice homeland
-        embellishment text sprinkle e-nGilith Morgul-rats rashly laughing share. Terms talk that's test faithless bower
-        board Nori normal.
-        I think we should get off the road. Twig try spills 12 fool's stealing Isildur leagues. Trap horn sakes sausages
-        driven everyone's witless raise chamomile stand Bert wins. Rolling goodwill rune Moon alliances jewel rumor
-        remarked leagues hesitate assessing. Warm mischief Faramir unfriendly whispers tricks tracked inferno these win
-        chest. Fool's Durin's wild flagon? Begun expecting blue from wizards vines Gon. Pierce wastelands laboring Shire?
-        Remade kind Thror lets. She-Elf rides iron.
+        I had been thinking of this piece for a while, but was never really able to put to paper what I was imagining.
+        The background for this piece comes from a world of my own creation, and is steeped in loss.
+      </p>
+      <p>
+        Rage is an "Ego knight", a manifestation of the death throes of a dying god. Trying to hold on to the last pieces of their life, 
+        this god's death has manifested eight Ego knights, each inhabiting an animal, a stage of the moon, and a stage of grief. Rage itself embodies a boar, a half empty moon, and anger.
+      </p>
+      <p>
+        Rage itself is composed of a colony of worms that work together as a hivemind. When they need a new host, they consume all but the bones
+        of a creature. Then, they place the bones together like scaffolding to use to traverse the world. They kill indiscriminately and blindly,
+        unwilling to cease save for leaving the last person in an area alive. This person is allowed to leave, and harbor hatred against Rage.
+      </p>
+      <p>
+        When Rage itself is killed, it reaches out to those that hold it in hatred in their hearts, and takes one of them by force to be its new host. They are consumed, and the hatred outlives the hateful.
+      </p>
+      <br>
+      <p>
+        One day while browsing the web, I came across <a href="https://www.instagram.com/p/C0ZoqJ4Ood0/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">this piece by artist Shawn Coss</a>, and was so struck by it.
+        It was exactly what I was feeling for Rage, and I wanted to try my own hand at making something that evoked the same feeling.
       </p>
     </template>
     <template v-slot:case>
@@ -38,7 +45,7 @@ import Background from './components/Background.vue';
         :handleStartingPos="38"
       />
       <Gallery
-        galleryID="ExampleID"
+        galleryID="RageGallery"
         :works="images"
       >
       </Gallery>
