@@ -27,9 +27,26 @@
     }
 
     .title {
-        margin-top: 0;
-        font-family: 'Cinzel Decorative', serif;
-        text-align: center;
+      margin-top: 0;
+      margin-block-end: 1.8rem;
+      padding-bottom: 0.4rem;
+      font-family: 'Cinzel Decorative', serif;
+      text-align: right;
+      position: relative;
+      --half-height: 2px;
+
+      &:before {
+        content: "";
+        display: block;
+        background: transparent;
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        right: 0;
+        bottom: 0;
+        background: white;
+        opacity: 0.5;
+      }
     }
 
     .case {

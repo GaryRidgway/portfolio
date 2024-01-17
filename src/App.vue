@@ -2,15 +2,16 @@
 import Comparison from './components/Comparison.Vue';
 import Display from './components/Display.vue';
 import Gallery from './components/Gallery.vue';
+import Background from './components/Background.vue';
 </script>
 
 <template>
+  <Background
+    bgUrl="/src/assets/Rage/RageGoldMax.png"
+  />
+
   <Display
-    title="the monument to the scarlet moon"
-    galleryID="ExampleID"
-    w="400px"
-    h="600px"
-    :works="images"
+    title="the rage"
   >
     <template v-slot:statement>
       <p>
