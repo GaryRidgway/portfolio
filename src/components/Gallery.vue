@@ -1,20 +1,22 @@
 <template>
-  <div :id="galleryID">
+  <div :id="galleryID" class="gallery-container">
     <a
-    v-for="(work, key) in worksData"
-    :key="key"
-    :href="work.largeURL"
-    :data-pswp-type="work.type"
-    :data-pswp-width="work.width"
-    :data-pswp-height="work.height"
-    :data-pswp-containerModWidth="
-      'containerMod' in work && 'width' in work.containerMod ? work.containerMod.width : 0
-    "
-    :data-pswp-containerModHeight="
-      'containerMod' in work && 'height' in work.containerMod ? work.containerMod.height : 0
-    "
-    target="_blank"
-    rel="noreferrer"
+      :class="classes(spotlight, key)"
+      v-for="(work, key) in worksData"
+      :key="key"
+      :href="work.largeURL"
+      :data-pswp-type="work.type"
+      :data-pswp-width="work.width"
+      :data-pswp-height="work.height"
+      :data-cropped="spotlight && key === 0 ? false : true"
+      :data-pswp-containerModWidth="
+        'containerMod' in work && 'width' in work.containerMod ? work.containerMod.width : 0
+      "
+      :data-pswp-containerModHeight="
+        'containerMod' in work && 'height' in work.containerMod ? work.containerMod.height : 0
+      "
+      target="_blank"
+      rel="noreferrer"
     >
     <img :src="work.thumbnailURL" alt="" />
     </a>
@@ -22,12 +24,39 @@
 </template>
 
 <style lang="scss">
+.gallery-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc(-1 * var(--element-spacing));
+}
+
+.gallery-item {
+  --item-width: 100%;
+  width: calc(var(--item-width) - var(--element-spacing));
+  padding-right: var(--element-spacing);
+  padding-bottom: var(--element-spacing);
+  display: flex;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &:not(.gallery-item-spotlight) {
+    --item-width: 33.33%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+}
+
 .pswp__google-map-container {
   position: relative;
   width: 100%;
   height: 100%;
   pointer-events: none;
 }
+
 .pswp__google-map-container iframe {
   background: #444;
   width: 100%;
@@ -52,6 +81,10 @@ export default {
   name: 'Gallery',
   props: {
     galleryID: String,
+    spotlight: {
+      type: Boolean,
+      default: false
+    },
     works: Array,
 },
   setup(props) {
@@ -147,6 +180,15 @@ export default {
       this.lightbox = null;
     }
   },
-  methods: {},
+  methods: {
+    classes(spotlight='', key='') {
+      let classes = ['gallery-item'];
+      if (spotlight && key === 0) {
+        classes.push('gallery-item-spotlight');
+      }
+
+      return classes.concat(' ');
+    }
+  },
 };
 </script>

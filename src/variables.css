@@ -4,12 +4,13 @@
     --spacing:1.25rem;
     --slider-width: 50rem;
     --slider-height: 30rem;
+    --element-spacing: 0.6rem;
 
     /* Colors */
     --body-text: #cacaca;
 
     /* Base styles */
-    font-size: 16px;
+    font-size: 18px;
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
 }

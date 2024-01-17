@@ -1,24 +1,31 @@
 <script setup>
 import { nextTick } from 'vue'
-defineProps({
+const props = defineProps({
   w: String,
-  h: String
+  h: String,
+  handleStartingPos: {
+    type: Number,
+    default: 50
+  }
 });
 
 nextTick(() => {
-// set vars
-const imageSliderContainer = document.querySelector(".image-slider-container");
-const slider = document.getElementById("range-slider");
-const image = document.getElementsByClassName("image")[1];
-const buttonRange = document.getElementsByClassName("slider-control")[0];
+  // set vars
+  const imageSliderContainer = document.querySelector(".image-slider-container");
+  const slider = document.getElementById("range-slider");
+  const image = document.getElementsByClassName("image")[1];
+  const buttonRange = document.getElementsByClassName("slider-control")[0];
 
-// Move slider and buttonRange at change of value
-slider.addEventListener("input", (e) => {
-	const sliderPos = e.target.value;
+  // Move slider and buttonRange at change of value
+  slider.addEventListener("input", (e) => {
+    const sliderPos = e.target.value;
 
-	image.style.width = sliderPos + "%";
-	buttonRange.style.left = sliderPos + "%";
-});
+    image.style.width = sliderPos + "%";
+    buttonRange.style.left = sliderPos + "%";
+  });
+
+  image.style.width = props.handleStartingPos + "%";
+  buttonRange.style.left = props.handleStartingPos + "%";
 });
 
 </script>
@@ -27,11 +34,11 @@ slider.addEventListener("input", (e) => {
     <div class="image-slider-container">
         <!-- Upper Image -->
         <div class="image background-image">
-            <img src="/src/assets/Monupaint.png">
+            <img src="/src/assets/Rage/RageGoldMin.png">
         </div>
         <!-- Lower Image -->
         <div class="image foreground-image">
-            <img src="/src/assets/Monusketch.png">
+            <img src="/src/assets/Rage/RageStartMin.png">
         </div>
 
         <!-- Range Input -->
@@ -48,33 +55,46 @@ slider.addEventListener("input", (e) => {
 <style lang="scss" scoped>
 .image-slider-container {
   position: relative;
-  width: 1065px;
-  height: 1468px;
-  border: 5px solid #fff;
-  border-radius: 20px;
-  overflow: hidden;
-  transform: scale(1) rotate(0);
-  transition: transform 300ms ease;
+  width: 100%;
+  height: auto;
   transform-style: preserve-3d;
+  overflow: hidden;
+
+  .image {
+    &.background-image {
+      display: flex;
+    }
+
+    &.foreground-image {
+      width: 50%;
+      height: 100%;
+      position: absolute;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-position: left;
+        object-fit: cover;
+      }
+    }
+  }
 }
 .image-slider-container .image {
-    overflow: hidden;
-  position: absolute;
+  overflow: hidden;
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: auto;
   left: 0;
   top: 0;
   background-size: cover;
   background-position: center;
 
   img {
-    height: 100%;
-    width: auto;
+    width: 100%;
+    height: auto;
   }
 }
-.image-slider-container .image:nth-child(2) {
-  width: 50%;
-}
+
 .image-slider-container .range-slider {
   position: absolute;
   display: flex;
@@ -82,8 +102,9 @@ slider.addEventListener("input", (e) => {
   align-items: center;
   width: 100%;
   height: 100%;
+  top: 0%;
   margin: 0;
-  background: rgba(242, 242, 242, 0.2);
+  background: transparent;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
@@ -94,47 +115,48 @@ slider.addEventListener("input", (e) => {
   -webkit-appearance: none;
   appearance: none;
   width: 6px;
-  height: 800px;
+  height: 100%;
   background: white;
   cursor: move;
-  transition: all 300ms ease;
 }
 
 .slider-control {
-  z-index: 0;
-  position: relative;
+  position: absolute;
   display: block;
   width: 30px;
+  cursor: move;
   height: 30px;
+  margin-left: 3px;
   border-radius: 50%;
   background: white;
   top: 50%;
   left: 50%;
   transform: translate(-60%, -50%);
   cursor: grab;
-}
-.slider-control::after, .slider-control::before {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.slider-control::after {
-  content: "";
-  right: 3px;
-}
-.slider-control::before {
-  content: "";
-  left: 3px;
-}
 
-@keyframes focusToSlider {
-  from {
-    box-shadow: inset 0 0 200px;
+  &::before {
+    content: "";
+    position: absolute;
+    height: 100vh;
+    top: -50vh;
+    left: calc(50% - 4px);
+    backdrop-filter: blur(6px);
+    background-color: rgba(44, 113, 145, 0.2);
+    width: 8px;
+    box-shadow: 0px 0px 16px 1px #0e0e0ea8;
+    z-index: 0;
   }
-  to {
-    box-shadow: inset 0 0 0 0;
+
+  &::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    top: 0;
+    background: white;
+    border-radius: 50%;
+    width: 100%;
+    box-shadow: 0px 0px 16px 1px #0e0e0ea8;
+    z-index: 0;
   }
 }
 
