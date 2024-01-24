@@ -68,7 +68,7 @@ const s1 = function (sketch) {
     }
 
     sketch.draw = function () {
-        let alFun = Math.max((100 * sketch.sin((sketch.zoff * 1.5) + 2)) - 95, sketch.bga)
+        let alFun = Math.max((120 * sketch.sin((sketch.zoff * 1.5) + 2)) - 95, sketch.bga)
         sketch.background(sketch.bg, alFun);
         var yoff = 0;
         for (var y = 0; y < sketch.rows; y++) {
