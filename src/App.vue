@@ -1,59 +1,76 @@
 <script setup>
-import Comparison from './components/Comparison.Vue';
-import Display from './components/Display.vue';
-import Gallery from './components/Gallery.vue';
-import Background from './components/Background.vue';
+import Comparison from './components/Comparison/Comparison.vue';
+import Display from './components/Display/Display.vue';
+import Gallery from './components/Gallery/Gallery.vue';
+import Background from './components/Background/Background.vue';
+import FlowBorder from './components/flowBorder/flowBorder.vue';
+import landingPad from './components/landingPad/landingPad.vue';
 </script>
 
 <template>
-  <Background
+  <flow-border></flow-border>
+  <div class='test'>
+    <!-- <Display
+      title="RaGe"
+      medium="Ink on paper"
+      size="4 inches by 6 inches"
+      date="Completed 01/15/2024"
+    >
+      <template v-slot:statement>
+        <p>
+          I had been thinking of this piece for a while, but was never really able to put to paper what I was imagining.
+          The background for this piece comes from a world of my own creation, and is steeped in loss.
+        </p>
+        <p>
+          Rage is an "Ego knight", a manifestation of the death throes of a dying god. Trying to hold on to the last pieces of their life, 
+          this god's death has manifested eight Ego knights, each inhabiting an animal, a stage of the moon, and a stage of grief. Rage itself embodies a boar, a half empty moon, and anger.
+        </p>
+        <p>
+          Rage itself is composed of a colony of worms that work together as a hivemind. When they need a new host, they consume all but the bones
+          of a creature. Then, they place the bones together like scaffolding to use to traverse the world. They kill indiscriminately and blindly,
+          unwilling to cease save for leaving the last person in an area alive. This person is allowed to leave, and harbor hatred against Rage.
+        </p>
+        <p>
+          When Rage itself is killed, it reaches out to those that hold it in hatred in their hearts, and takes one of them by force to be its new host. They are consumed, and the hatred outlives the hateful.
+        </p>
+        <br>
+        <p>
+          One day while browsing the web, I came across <a href="https://www.instagram.com/p/C0ZoqJ4Ood0/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">this piece by artist Shawn Coss</a>, and was so struck by it.
+          It was exactly what I was feeling for Rage, and I wanted to try my own hand at making something that evoked the same feeling.
+        </p>
+      </template>
+      <template v-slot:case>
+        <Gallery
+          galleryID="RageGallery"
+          :works="images"
+        >
+        </Gallery>
+      </template>
+    </Display> -->
+    <landing-pad/>
+  </div>
+  <!-- <Background
     bgUrl="/src/assets/Rage/RageGoldMax.png"
-  />
+  /> -->
 
-  <Display
-    title="RaGe"
-    medium="Ink on paper"
-    size="4 inches by 6 inches"
-    date="Completed 01/15/2024"
-  >
-    <template v-slot:statement>
-      <p>
-        I had been thinking of this piece for a while, but was never really able to put to paper what I was imagining.
-        The background for this piece comes from a world of my own creation, and is steeped in loss.
-      </p>
-      <p>
-        Rage is an "Ego knight", a manifestation of the death throes of a dying god. Trying to hold on to the last pieces of their life, 
-        this god's death has manifested eight Ego knights, each inhabiting an animal, a stage of the moon, and a stage of grief. Rage itself embodies a boar, a half empty moon, and anger.
-      </p>
-      <p>
-        Rage itself is composed of a colony of worms that work together as a hivemind. When they need a new host, they consume all but the bones
-        of a creature. Then, they place the bones together like scaffolding to use to traverse the world. They kill indiscriminately and blindly,
-        unwilling to cease save for leaving the last person in an area alive. This person is allowed to leave, and harbor hatred against Rage.
-      </p>
-      <p>
-        When Rage itself is killed, it reaches out to those that hold it in hatred in their hearts, and takes one of them by force to be its new host. They are consumed, and the hatred outlives the hateful.
-      </p>
-      <br>
-      <p>
-        One day while browsing the web, I came across <a href="https://www.instagram.com/p/C0ZoqJ4Ood0/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">this piece by artist Shawn Coss</a>, and was so struck by it.
-        It was exactly what I was feeling for Rage, and I wanted to try my own hand at making something that evoked the same feeling.
-      </p>
-    </template>
-    <template v-slot:case>
-      
-      <Comparison
-        :handleStartingPos="38"
-      />
-      <Gallery
-        galleryID="RageGallery"
-        :works="images"
-      >
-      </Gallery>
-    </template>
-  </Display>
+  
 </template>
 
 <style lang="scss" scoped>
+.test {
+  height: calc(100vh - 100px);
+  margin: 50px auto;
+  position: relative;
+  width: min(var(--content-max-width) + 228px, 100vw - 186px);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  // background: #e89090;
+  // border-radius: 13px;
+  // overflow-y: scroll;
+  // box-shadow: 0 14px 28px rgb(0 0 0 / 77%), 0 10px 10px rgb(0 0 0 / 64%);
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -75,10 +92,20 @@ export default {
   components: {
     Display,
     Gallery,
+    FlowBorder,
   },
   data() {
     return {
       images: [
+        {
+          title: 'RageGoldMax',
+          largeURL:
+            '/src/assets/Rage/RageGoldMax.png',
+          thumbnailURL:
+            '/src/assets/Rage/RageGoldMin.png',
+          width: 2268,
+          height: 3162,
+        },
         {
           title: 'RageStage1',
           largeURL:
@@ -96,15 +123,6 @@ export default {
             '/src/assets/Rage/RageStage2Thumb.png',
           width: 2268,
           height: 4032,
-        },
-        {
-          title: 'RageGoldMax',
-          largeURL:
-            '/src/assets/Rage/RageGoldMax.png',
-          thumbnailURL:
-            '/src/assets/Rage/RageGoldThumb.png',
-          width: 2268,
-          height: 3162,
         },
         // {
         //   title: 'img1',
