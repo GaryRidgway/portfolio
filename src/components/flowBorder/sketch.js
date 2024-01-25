@@ -9,17 +9,17 @@ const s1 = function (sketch) {
     sketch.zinc = 0.00005;
     sketch.scl = 20;
     sketch.bg = 'rgba(24,72,120,';
-    sketch.bg = 'rgba(0,81,162,';
+    sketch.bg = 'rgba(22,64,106,';
     sketch.bga = 0;
     sketch.transparencyMult = 1;
     sketch.numPar = function() {
         const sketchArea = sketch.windowWidth * sketch.windowHeight;
         const refArea = 360000;
-        const refParticles = 1000;
+        const refParticles = 500;
         const newParticleCount = (refParticles*sketchArea) / refArea;
         return Math.min(newParticleCount, 1500);
     }();
-    sketch.debug = true;
+    sketch.debug = false;
     sketch.cols = 0;
     sketch.rows = 0;
 

@@ -7,9 +7,9 @@ import p5 from 'p5';
 
 export default class Particle {
     constructor(sketch) {
-        this.alpha = 3.5/255;
+        this.alpha = 5/255;
         this.power = 255;
-        this.color = 'rgba(255,205,0,';
+        this.color = 'rgba(255,199,66,';
         this.white = 'rgba(255,255,255,';
         this.sketch = sketch;
         this.pos = this.sketch.createVector(this.sketch.random(this.sketch.width), this.sketch.random(this.sketch.height));
@@ -46,9 +46,9 @@ export default class Particle {
         this.sketch.push();
         this.sketch.strokeCap(this.sketch.SQUARE);
         this.sketch.strokeWeight(0.8);
-        this.sketch.stroke(this.sketch.color(this.white + (this.alpha*1.1) + ')'));
+        // this.sketch.stroke(this.sketch.color(this.white + (this.alpha*.8) + ')'));
         // this.sketch.stroke(this.power, 255);
-        this.sketch.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+        // this.sketch.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
         this.sketch.stroke(this.sketch.color(this.color + this.alpha + ')'));
         // this.sketch.stroke(this.power, 255);
         this.sketch.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
@@ -66,25 +66,25 @@ export default class Particle {
         if (this.pos.x > this.sketch.width) {
             this.pos.x = 0;
             this.pos.y = this.pos.y + this.randomIntFromInterval(-10, 10);
-            this.applyForce(p5.Vector.fromAngle(1, 0).mult(this.launchForce));
+            this.applyForce(p5.Vector.fromAngle(10, 0).mult(this.launchForce));
             this.updatePrev();
         }
         if (this.pos.x < 0) {
             this.pos.x = this.sketch.width;
             this.pos.y = this.pos.y + this.randomIntFromInterval(-10, 10);
-            this.applyForce(p5.Vector.fromAngle(-1, 0).mult(this.launchForce));
+            this.applyForce(p5.Vector.fromAngle(-10, 0).mult(this.launchForce));
             this.updatePrev();
         }
         if (this.pos.y > this.sketch.height) {
             this.pos.y = 0;
             this.pos.x = this.pos.x + this.randomIntFromInterval(-10, 10);
-            this.applyForce(p5.Vector.fromAngle(0, 1).mult(this.launchForce));
+            this.applyForce(p5.Vector.fromAngle(0, 10).mult(this.launchForce));
             this.updatePrev();
         }
         if (this.pos.y < 0) {
             this.pos.y = this.sketch.height;
             this.pos.x = this.pos.x + this.randomIntFromInterval(-10, 10);
-            this.applyForce(p5.Vector.fromAngle(0, -1).mult(this.launchForce));
+            this.applyForce(p5.Vector.fromAngle(0, -10).mult(this.launchForce));
             this.updatePrev();
         }
 
