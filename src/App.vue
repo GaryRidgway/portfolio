@@ -61,7 +61,7 @@ import landingPad from './components/landingPad/landingPad.vue';
   height: calc(100vh - 100px);
   margin: 50px auto;
   position: relative;
-  width: min(var(--content-max-width) + 228px, 100vw - 186px);
+  width: min(var(--content-max-width), 100vw - 186px);
   justify-content: center;
   align-items: center;
   display: flex;

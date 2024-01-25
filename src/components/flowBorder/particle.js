@@ -7,8 +7,10 @@ import p5 from 'p5';
 
 export default class Particle {
     constructor(sketch) {
-        this.alpha = 3;
+        this.alpha = 3.5/255;
         this.power = 255;
+        this.color = 'rgba(255,205,0,';
+        this.white = 'rgba(255,255,255,';
         this.sketch = sketch;
         this.pos = this.sketch.createVector(this.sketch.random(this.sketch.width), this.sketch.random(this.sketch.height));
         this.vel = this.sketch.createVector(0, 0);
@@ -16,6 +18,9 @@ export default class Particle {
         this.maxspeed = 4;
         this.prevPos = this.pos.copy();
         this.launchForce = 0;
+        if(sketch.debug && sketch.particles.length === 0) {
+            console.log(this.color);
+        }
     }
 
     update() {
@@ -40,9 +45,12 @@ export default class Particle {
     show() {
         this.sketch.push();
         this.sketch.strokeCap(this.sketch.SQUARE);
-        this.sketch.stroke(this.power, this.alpha);
-        // this.sketch.stroke(this.power, 255);
         this.sketch.strokeWeight(0.8);
+        this.sketch.stroke(this.sketch.color(this.white + (this.alpha*1.1) + ')'));
+        // this.sketch.stroke(this.power, 255);
+        this.sketch.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+        this.sketch.stroke(this.sketch.color(this.color + this.alpha + ')'));
+        // this.sketch.stroke(this.power, 255);
         this.sketch.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
         this.sketch.pop();
         this.updatePrev();

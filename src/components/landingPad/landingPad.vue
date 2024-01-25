@@ -9,7 +9,10 @@
   </div>
   <div id='portrait'>
     <img src='/src/assets/simpleheadshot.png' />
+    <span class='year'>Est. 1994</span>
   </div>
+  <h1 id='landing-pad-title'>Alan Way</h1>
+  <div class='decoration'></div>
 </div>
 </template>
 
@@ -42,7 +45,9 @@
   margin: 2% 15% 0 0;
   overflow: hidden;
   aspect-ratio: 1/0.65;
-  filter: contrast(1.6) saturate(0.4) brightness(0.8);
+  filter: contrast(1.6) saturate(0.4) brightness(1);
+  z-index: -1;
+  background-color: #fafafa;
 
   img {
     height: 100%;
@@ -50,6 +55,7 @@
     width: 100%;
     object-fit: cover;
     object-position: center;
+    display: none;
   }
 }
 
@@ -61,6 +67,18 @@
   aspect-ratio: 1/.75;
   position: absolute;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 36% 100%, 0% 52%);
+  z-index: -1;
+
+  .year {
+    font-family: 'Playfair Display', serif;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    transform-origin: top right;
+    transform: rotate(90deg);
+    padding: 6px 4px;
+    display: none;
+  }
 
   &:before {
     content: "";
@@ -81,6 +99,26 @@
     object-position: right;
     transform: scaleX(-1);
   }
+}
+
+#landing-pad-title {
+
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  color: #202020;
+  left: 10%;
+  top: 3%;
+  position: absolute;
+  font-size: clamp(2.25rem, calc(11.4074vw - 2.0278rem), 6.1rem);
+}
+
+.decoration {
+    width: 93%;
+    height: 96%;
+    margin-bottom: 1.5%;
+    border: 2px solid #acacacb8;
+    position: absolute;
+    pointer-events: none;
 }
 
 </style>
