@@ -10,6 +10,8 @@
   <div class='decoration'></div>
   <div id='portrait'>
     <img src='/src/assets/selfPortraitWarpCropped.jpg' />
+    <img src='/src/assets/selfPortraitWarpCropped.jpg' />
+    <img src='/src/assets/selfPortraitWarpCropped.jpg' />
     <span class='year'>Est. 1994</span>
   </div>
   <h1 id='landing-pad-title'>Alan Way</h1>
@@ -47,7 +49,7 @@
   aspect-ratio: 1/0.65;
   filter: contrast(1.6) saturate(0.4) brightness(1);
   z-index: -1;
-  background-color: #fafafa;
+  background-color: var(--warm-sun);
 
   img {
     height: 100%;
@@ -60,13 +62,11 @@
 }
 
 #portrait {
-  width: calc(100% - 45%);
-  height: calc(100% - 5%);
+  width: 45%;
+  height: 105%;
   margin: 0 0 5% 45%;
-  overflow: hidden;
-  aspect-ratio: 1/.75;
+  // overflow: hidden;
   position: absolute;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 36% 100%, 0% 51%);
 
   .year {
     font-family: 'Playfair Display', serif;
@@ -89,14 +89,54 @@
     z-index: 1;
   }
 
+  &:hover {
+    img {
+      &:nth-child(2) {
+        transform: translate(-8%, -5%);
+      }
+      &:nth-child(3) {
+        transform: translate(8%, 5%);
+      }
+    }
+  }
+
   img {
     height: 100%;
     // filter: saturate(0);
     aspect-ratio: 1.78 / 1;
     width: 100%;
     object-fit: cover;
-    object-position: top 20% right 0;
+    object-position: top 0% right 0;
     // transform: scaleX(-1);
+    position: absolute;
+    transition: 0.3s ease-in-out;
+    clip-path: polygon(
+      0% 3%,
+      100% 36%,
+      100% 97%,
+      0% 64%,
+    );
+      transform: translate(0%, 0%);
+
+    &:nth-child(2) {
+      clip-path: polygon(
+        0% 0%,
+        100% 33%,
+        100% 36%,
+        0% 3%
+      );
+      transform: translate(0%, calc(0% + 1px));
+    }
+
+    &:nth-child(3) {
+      clip-path: polygon(
+        0% 64%,
+        100% 97%,
+        100% 100%,
+        0% 67%
+      );
+      transform: translate(0%, calc(0% + -1px));
+    }
   }
 }
 

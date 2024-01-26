@@ -9,13 +9,13 @@ const s1 = function (sketch) {
     sketch.zinc = 0.00005;
     sketch.scl = 15;
     sketch.bg = 'rgba(24,72,120,';
-    sketch.bg = 'rgba(22,64,106,';
+    sketch.bg = 'rgba(24, 35, 52,';
     sketch.bga = 0;
     sketch.transparencyMult = 1;
     sketch.numPar = function() {
         const sketchArea = sketch.windowWidth * sketch.windowHeight;
         const refArea = 360000;
-        const refParticles = 500;
+        const refParticles = 700;
         const newParticleCount = (refParticles*sketchArea) / refArea;
         return Math.min(newParticleCount, 1500);
     }();
@@ -50,7 +50,7 @@ const s1 = function (sketch) {
     }
 
     sketch.setup = function () {
-        sketch.noiseSeed('Alan Way');
+        sketch.noiseSeed('Alan');
         sketch.frameRate(20);
         const canvas = sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
         if (document.getElementById(document.flowSketchId)) {
@@ -91,7 +91,7 @@ const s1 = function (sketch) {
                 v.setMag(1);
                 sketch.flowfield[index] = v;
                 xoff += sketch.inc;
-                if (sketch.debug) {
+                if (sketch.debug && false) {
                     sketch.push();
                     sketch.stroke(255);
                     sketch.translate(x*trueColWidth, y*trueRowHeight);

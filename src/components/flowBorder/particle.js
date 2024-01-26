@@ -10,7 +10,7 @@ export default class Particle {
         this.display = true;
         this.alpha = 5/255;
         this.power = 255;
-        this.color = 'rgba(255,199,66,';
+        this.color = 'rgba(255, 186, 36,';
         this.white = 'rgba(255,255,255,';
         this.sketch = sketch;
         this.pos = this.sketch.createVector(this.sketch.random(this.sketch.width), this.sketch.random(this.sketch.height));
@@ -48,9 +48,9 @@ export default class Particle {
             this.sketch.push();
                 this.sketch.strokeCap(this.sketch.SQUARE);
                 this.sketch.strokeWeight(0.8);
-                this.sketch.stroke(this.sketch.color(this.white + (this.alpha*1.1) + ')'));
+                // this.sketch.stroke(this.sketch.color(this.white + (this.alpha*0.4) + ')'));
                 // this.sketch.stroke(this.power, 255);
-                this.sketch.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+                // this.sketch.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
                 this.sketch.stroke(this.sketch.color(this.color + this.alpha + ')'));
                 // this.sketch.stroke(this.power, 255);
                 this.sketch.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
