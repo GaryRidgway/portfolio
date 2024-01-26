@@ -12,6 +12,8 @@
     <img src='/src/assets/selfPortraitWarpCropped.jpg' />
     <img src='/src/assets/selfPortraitWarpCropped.jpg' />
     <img src='/src/assets/selfPortraitWarpCropped.jpg' />
+    <img src='/src/assets/selfPortraitWarpCropped.jpg' />
+    <img src='/src/assets/selfPortraitWarpCropped.jpg' />
     <span class='year'>Est. 1994</span>
   </div>
   <h1 id='landing-pad-title'>Alan Way</h1>
@@ -63,10 +65,11 @@
 
 #portrait {
   width: 45%;
-  height: 105%;
-  margin: 0 0 5% 45%;
+  height: 126%;
+  margin: 7.5% 0 0 45%;
   // overflow: hidden;
   position: absolute;
+  filter: drop-shadow(2px 4px 4px rgba(67, 67, 67, 0.654));
 
   .year {
     font-family: 'Playfair Display', serif;
@@ -92,10 +95,16 @@
   &:hover {
     img {
       &:nth-child(2) {
-        transform: translate(-8%, -5%);
+        transform: translate(calc(-24%), calc(-24% * 0.23 - 2%));
       }
       &:nth-child(3) {
-        transform: translate(8%, 5%);
+        transform: translate(calc(-8%), calc(-8% * 0.23 - 1%));
+      }
+      &:nth-child(4) {
+        transform: translate(calc(8%), calc(8% * 0.23 + 1%));
+      }
+      &:nth-child(5) {
+        transform: translate(calc(24%), calc(24% * 0.23 + 2%));
       }
     }
   }
@@ -111,31 +120,51 @@
     position: absolute;
     transition: 0.3s ease-in-out;
     clip-path: polygon(
-      0% 3%,
-      100% 36%,
-      100% 97%,
-      0% 64%,
+      0% 10%,
+      100% 33%,
+      100% 81%,
+      0% 58%,
     );
-      transform: translate(0%, 0%);
+    transform: translate(0%, 0%);
 
     &:nth-child(2) {
       clip-path: polygon(
         0% 0%,
-        100% 33%,
-        100% 36%,
-        0% 3%
+        100% 23%,
+        100% 27%,
+        0% 4%
       );
-      transform: translate(0%, calc(0% + 1px));
+      transform: translate(0%, 0%);
     }
 
     &:nth-child(3) {
       clip-path: polygon(
-        0% 64%,
-        100% 97%,
-        100% 100%,
+        0% 5%,
+        100% 28%,
+        100% 32%,
+        0% 9%
+      );
+      transform: translate(0%, 0%);
+    }
+
+    &:nth-child(4) {
+      clip-path: polygon(
+        0% 59%,
+        100% 82%,
+        100% 86%,
+        0% 62%
+      );
+      transform: translate(0%, 0%);
+    }
+
+    &:nth-child(5) {
+      clip-path: polygon(
+        0% 63%,
+        100% 87%,
+        100% 91%,
         0% 67%
       );
-      transform: translate(0%, calc(0% + -1px));
+      transform: translate(0%, 0%);
     }
   }
 }
@@ -145,10 +174,14 @@
   font-family: 'Playfair Display', serif;
   text-transform: uppercase;
   color: #202020;
-  left: 10%;
+  left: -4%;
   top: 3%;
+  background-color: #d19a42;
+  padding: 5px 60px 9px;
+  box-shadow: 2px 4px 8px 0px #43434363;
   position: absolute;
   font-size: clamp(2.25rem, calc(11.4074vw - 2.0278rem), 6.1rem);
+  // background-image: url('/src/assets/textured-paper.png');
 }
 
 .decoration {

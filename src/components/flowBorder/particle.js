@@ -10,7 +10,7 @@ export default class Particle {
         this.display = true;
         this.alpha = 5/255;
         this.power = 255;
-        this.color = 'rgba(255, 186, 36,';
+        this.color = 'rgba(255, 189, 31,';
         this.white = 'rgba(255,255,255,';
         this.sketch = sketch;
         this.pos = this.sketch.createVector(this.sketch.random(this.sketch.width), this.sketch.random(this.sketch.height));
