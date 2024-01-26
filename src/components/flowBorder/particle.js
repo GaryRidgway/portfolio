@@ -8,9 +8,9 @@ import p5 from 'p5';
 export default class Particle {
     constructor(sketch) {
         this.display = true;
-        this.alpha = 3.5/255;
+        this.alpha = 5/255;
         this.power = 255;
-        this.color = 'rgba(255,205,0,';
+        this.color = 'rgba(255,199,66,';
         this.white = 'rgba(255,255,255,';
         this.sketch = sketch;
         this.pos = this.sketch.createVector(this.sketch.random(this.sketch.width), this.sketch.random(this.sketch.height));
