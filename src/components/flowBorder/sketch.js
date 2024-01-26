@@ -7,7 +7,7 @@ import p5 from 'p5';
 const s1 = function (sketch) {
     sketch.inc = 0.1;
     sketch.zinc = 0.00005;
-    sketch.scl = 20;
+    sketch.scl = 15;
     sketch.bg = 'rgba(24,72,120,';
     sketch.bg = 'rgba(0,81,162,';
     sketch.bga = 0;
@@ -15,11 +15,11 @@ const s1 = function (sketch) {
     sketch.numPar = function() {
         const sketchArea = sketch.windowWidth * sketch.windowHeight;
         const refArea = 360000;
-        const refParticles = 1000;
+        const refParticles = 2000;
         const newParticleCount = (refParticles*sketchArea) / refArea;
         return Math.min(newParticleCount, 1500);
     }();
-    sketch.debug = true;
+    sketch.debug = false;
     sketch.cols = 0;
     sketch.rows = 0;
 
@@ -75,8 +75,10 @@ const s1 = function (sketch) {
     }
 
     sketch.draw = function () {
-        let alFun = Math.max((120 * sketch.sin((sketch.zoff * 1.5) + 2)) - 100, sketch.bga)/255
-        sketch.background(sketch.color(sketch.bg + alFun + ')'));
+        let alFun = Math.max((120 * sketch.sin((sketch.zoff * 1.5) + 2)) - 100, sketch.bga)/255;
+        if (alFun > 0) {
+            sketch.background(sketch.color(sketch.bg + alFun + ')'));
+        }
         let trueColWidth = sketch.width/sketch.cols;
         let trueRowHeight = sketch.height/sketch.rows;
         var yoff = 0;

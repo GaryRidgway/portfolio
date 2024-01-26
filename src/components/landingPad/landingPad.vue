@@ -7,12 +7,12 @@
   <div id='marbled'>
     <img src='/src/assets/marbleBG.png' />
   </div>
+  <div class='decoration'></div>
   <div id='portrait'>
-    <img src='/src/assets/simpleheadshot.png' />
+    <img src='/src/assets/selfPortraitWarpCropped.jpg' />
     <span class='year'>Est. 1994</span>
   </div>
   <h1 id='landing-pad-title'>Alan Way</h1>
-  <div class='decoration'></div>
 </div>
 </template>
 
@@ -60,14 +60,13 @@
 }
 
 #portrait {
-  width: calc(100% - 35%);
+  width: calc(100% - 45%);
   height: calc(100% - 5%);
-  margin: 0 0 5% 35%;
+  margin: 0 0 5% 45%;
   overflow: hidden;
   aspect-ratio: 1/.75;
   position: absolute;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 36% 100%, 0% 52%);
-  z-index: -1;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 36% 100%, 0% 51%);
 
   .year {
     font-family: 'Playfair Display', serif;
@@ -86,18 +85,18 @@
     height: 100%;
     width: 5px;
     left: calc(100% - 5px);
-    background-color: #ffcd00;
+    // background-color: #ffcd00;
     z-index: 1;
   }
 
   img {
     height: 100%;
-    filter: saturate(0);
+    // filter: saturate(0);
     aspect-ratio: 1.78 / 1;
     width: 100%;
     object-fit: cover;
-    object-position: right;
-    transform: scaleX(-1);
+    object-position: top 20% right 0;
+    // transform: scaleX(-1);
   }
 }
 

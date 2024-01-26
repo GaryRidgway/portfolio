@@ -7,6 +7,7 @@ import p5 from 'p5';
 
 export default class Particle {
     constructor(sketch) {
+        this.display = true;
         this.alpha = 3.5/255;
         this.power = 255;
         this.color = 'rgba(255,205,0,';
@@ -43,17 +44,19 @@ export default class Particle {
     }
 
     show() {
-        this.sketch.push();
-        this.sketch.strokeCap(this.sketch.SQUARE);
-        this.sketch.strokeWeight(0.8);
-        this.sketch.stroke(this.sketch.color(this.white + (this.alpha*1.1) + ')'));
-        // this.sketch.stroke(this.power, 255);
-        this.sketch.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
-        this.sketch.stroke(this.sketch.color(this.color + this.alpha + ')'));
-        // this.sketch.stroke(this.power, 255);
-        this.sketch.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
-        this.sketch.pop();
-        this.updatePrev();
+        if(this.display) {
+            this.sketch.push();
+                this.sketch.strokeCap(this.sketch.SQUARE);
+                this.sketch.strokeWeight(0.8);
+                this.sketch.stroke(this.sketch.color(this.white + (this.alpha*1.1) + ')'));
+                // this.sketch.stroke(this.power, 255);
+                this.sketch.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+                this.sketch.stroke(this.sketch.color(this.color + this.alpha + ')'));
+                // this.sketch.stroke(this.power, 255);
+                this.sketch.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+            this.sketch.pop();
+            this.updatePrev();
+        }
     }
 
     updatePrev() {
@@ -64,86 +67,128 @@ export default class Particle {
     edges() {
         // Canvas edges.
         if (this.pos.x > this.sketch.width) {
-            this.pos.x = 0;
-            this.pos.y = this.pos.y + this.randomIntFromInterval(-10, 10);
-            this.applyForce(p5.Vector.fromAngle(1, 0).mult(this.launchForce));
-            this.updatePrev();
+            if (this.sketch.clipbox) {
+                const cbp = this.randomPointInClipbox();
+                this.pos.x = cbp.x;
+                this.pos.y = cbp.y;
+            }
+            else {
+                this.pos.x = 0;
+                this.pos.y = this.pos.y + this.randomIntFromInterval(-10, 10);
+                this.applyForce(p5.Vector.fromAngle(1, 0).mult(this.launchForce));
+                this.updatePrev();
+            }
         }
-        if (this.pos.x < 0) {
-            this.pos.x = this.sketch.width;
-            this.pos.y = this.pos.y + this.randomIntFromInterval(-10, 10);
-            this.applyForce(p5.Vector.fromAngle(-1, 0).mult(this.launchForce));
-            this.updatePrev();
+        else if (this.pos.x < 0) {
+            if (this.sketch.clipbox) {
+                const cbp = this.randomPointInClipbox();
+                this.pos.x = cbp.x;
+                this.pos.y = cbp.y;
+            }
+            else {
+                this.pos.x = this.sketch.width;
+                this.pos.y = this.pos.y + this.randomIntFromInterval(-10, 10);
+                this.applyForce(p5.Vector.fromAngle(-1, 0).mult(this.launchForce));
+                this.updatePrev();
+            }
         }
-        if (this.pos.y > this.sketch.height) {
-            this.pos.y = 0;
-            this.pos.x = this.pos.x + this.randomIntFromInterval(-10, 10);
-            this.applyForce(p5.Vector.fromAngle(0, 1).mult(this.launchForce));
-            this.updatePrev();
+        else if (this.pos.y > this.sketch.height) {
+            if (this.sketch.clipbox) {
+                const cbp = this.randomPointInClipbox();
+                this.pos.x = cbp.x;
+                this.pos.y = cbp.y;
+            }
+            else {
+                this.pos.y = 0;
+                this.pos.x = this.pos.x + this.randomIntFromInterval(-10, 10);
+                this.applyForce(p5.Vector.fromAngle(0, 1).mult(this.launchForce));
+                this.updatePrev();
+            }
         }
-        if (this.pos.y < 0) {
-            this.pos.y = this.sketch.height;
-            this.pos.x = this.pos.x + this.randomIntFromInterval(-10, 10);
-            this.applyForce(p5.Vector.fromAngle(0, -1).mult(this.launchForce));
-            this.updatePrev();
+        else if (this.pos.y < 0) {
+            if (this.sketch.clipbox) {
+                const cbp = this.randomPointInClipbox();
+                this.pos.x = cbp.x;
+                this.pos.y = cbp.y;
+            }
+            else {
+                this.pos.y = this.sketch.height;
+                this.pos.x = this.pos.x + this.randomIntFromInterval(-10, 10);
+                this.applyForce(p5.Vector.fromAngle(0, -1).mult(this.launchForce));
+                this.updatePrev();
+            }
         }
 
         // Clipbox edges.
-        let xin = 0;
-        let yin = 0;
-        if (
-            !(this.pos.y < this.sketch.clipbox.y ||
-                this.pos.y > this.sketch.clipbox.y + this.sketch.clipbox.h) &&
-            (this.pos.x > this.sketch.clipbox.x &&
-                this.pos.x < this.sketch.clipbox.x + this.sketch.clipbox.w)
-        ) {
-            xin = this.pos.x - this.prevPos.x;
-        }
-
-        if (
-            !(this.pos.x < this.sketch.clipbox.x ||
-                this.pos.x > this.sketch.clipbox.x + this.sketch.clipbox.w) &&
-            (this.pos.y > this.sketch.clipbox.y &&
-                this.pos.y < this.sketch.clipbox.y + this.sketch.clipbox.h)
-        ) {
-            yin = this.pos.y - this.prevPos.y;
-        }
-
-        if (xin !== 0 || yin !== 0) {
-            if (Math.abs(xin) > Math.abs(yin)) {
-                const dir = Math.sign(xin);
-
-                if (dir == 1) {
-                    this.pos.x = this.sketch.clipbox.x + this.sketch.clipbox.w;
-                    this.pos.y = this.pos.y + this.randomIntFromInterval(-10, 10);
-                    this.applyForce(p5.Vector.fromAngle(1, 0).mult(this.launchForce));
-                }
-                else {
-                    this.pos.x = this.sketch.clipbox.x;
-                    this.pos.y = this.pos.y + this.randomIntFromInterval(-10, 10);
-                    this.applyForce(p5.Vector.fromAngle(-1, 0).mult(this.launchForce));
-                }
+        if (this.sketch.clipbox) {
+            let xin = 0;
+            let yin = 0;
+            if (
+                !(this.pos.y < this.sketch.clipbox.y ||
+                    this.pos.y > this.sketch.clipbox.y + this.sketch.clipbox.h) &&
+                (this.pos.x > this.sketch.clipbox.x &&
+                    this.pos.x < this.sketch.clipbox.x + this.sketch.clipbox.w)
+            ) {
+                xin = this.pos.x - this.prevPos.x;
+            }
+    
+            if (
+                !(this.pos.x < this.sketch.clipbox.x ||
+                    this.pos.x > this.sketch.clipbox.x + this.sketch.clipbox.w) &&
+                (this.pos.y > this.sketch.clipbox.y &&
+                    this.pos.y < this.sketch.clipbox.y + this.sketch.clipbox.h)
+            ) {
+                yin = this.pos.y - this.prevPos.y;
+            }
+    
+            if (xin !== 0 || yin !== 0) {
+                // if (Math.abs(xin) > Math.abs(yin)) {
+                //     const dir = Math.sign(xin);
+    
+                //     if (dir == 1) {
+                //         this.pos.x = this.sketch.clipbox.x + this.sketch.clipbox.w;
+                //         this.pos.y = this.pos.y + this.randomIntFromInterval(-10, 10);
+                //         this.applyForce(p5.Vector.fromAngle(1, 0).mult(this.launchForce));
+                //     }
+                //     else {
+                //         this.pos.x = this.sketch.clipbox.x;
+                //         this.pos.y = this.pos.y + this.randomIntFromInterval(-10, 10);
+                //         this.applyForce(p5.Vector.fromAngle(-1, 0).mult(this.launchForce));
+                //     }
+                // }
+                // else {
+                //     const dir = Math.sign(yin);
+    
+                //     if (dir == 1) {
+                //         this.pos.y = this.sketch.clipbox.y + this.sketch.clipbox.h;
+                //         this.pos.x = this.pos.x + this.randomIntFromInterval(-10, 10);
+                //         this.applyForce(p5.Vector.fromAngle(0, 1).mult(this.launchForce));
+                //     }
+                //     else {
+                //         this.pos.y = this.sketch.clipbox.y;
+                //         this.pos.x = this.pos.x + this.randomIntFromInterval(-10, 10);
+                //         this.applyForce(p5.Vector.fromAngle(0, -1).mult(this.launchForce));
+                //     }
+                // }
+                this.display = false;
+                this.vel.add(this.acc*4);
+    
+                this.updatePrev();
             }
             else {
-                const dir = Math.sign(yin);
-
-                if (dir == 1) {
-                    this.pos.y = this.sketch.clipbox.y + this.sketch.clipbox.h;
-                    this.pos.x = this.pos.x + this.randomIntFromInterval(-10, 10);
-                    this.applyForce(p5.Vector.fromAngle(0, 1).mult(this.launchForce));
-                }
-                else {
-                    this.pos.y = this.sketch.clipbox.y;
-                    this.pos.x = this.pos.x + this.randomIntFromInterval(-10, 10);
-                    this.applyForce(p5.Vector.fromAngle(0, -1).mult(this.launchForce));
-                }
+                this.display = true;
             }
-
-            this.updatePrev();
         }
     }
 
     randomIntFromInterval(min, max) { // min and max included 
         return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+
+    randomPointInClipbox() {
+        return {
+            x: this.sketch.clipbox.x + Math.floor(Math.random() * this.sketch.clipbox.w),
+            y: this.sketch.clipbox.y + Math.floor(Math.random() * this.sketch.clipbox.h),
+        }
     }
 }
