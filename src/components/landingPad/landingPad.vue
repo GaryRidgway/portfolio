@@ -7,7 +7,8 @@
   <div id='marbled'>
     <img src='/src/assets/marbleBG.png' />
   </div>
-  <div class='decoration'></div>
+  <div class='backdrop-paper'></div>
+  <!-- <div class='decoration'></div> -->
   <div id='portrait'>
     <img src='/src/assets/selfPortraitWarpCropped.jpg' />
     <img src='/src/assets/selfPortraitWarpCropped.jpg' />
@@ -32,6 +33,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+
+
+  .backdrop-paper {
+    width: 24%;
+    height: 120%;
+    position: absolute;
+    left: 78%;
+    top: -7%;
+    background-color: var(--warm-sun);
+    filter: var(--sm2);
+  }
 }
 
 #measurer { 
@@ -49,9 +62,9 @@
   margin: 2% 15% 0 0;
   overflow: hidden;
   aspect-ratio: 1/0.65;
-  filter: contrast(1.6) saturate(0.4) brightness(1);
-  z-index: -1;
-  background-color: var(--warm-sun);
+  // filter: contrast(1.6) saturate(0.4) brightness(1);
+  background-color: var(--mint);
+    filter: var(--sm1);
 
   img {
     height: 100%;
@@ -69,7 +82,7 @@
   margin: 7.5% 0 0 45%;
   // overflow: hidden;
   position: absolute;
-  filter: drop-shadow(2px 4px 4px rgba(67, 67, 67, 0.654));
+  filter: var(--sm2);
 
   .year {
     font-family: 'Playfair Display', serif;
@@ -126,6 +139,7 @@
       0% 58%,
     );
     transform: translate(0%, 0%);
+    filter: saturate(1.1) contrast(1.1);
 
     &:nth-child(2) {
       clip-path: polygon(
@@ -176,11 +190,11 @@
   color: #202020;
   left: -4%;
   top: 3%;
-  background-color: #d19a42;
+  // background-color: #d19a42;
   padding: 5px 60px 9px;
-  box-shadow: 2px 4px 8px 0px #43434363;
   position: absolute;
   font-size: clamp(2.25rem, calc(11.4074vw - 2.0278rem), 6.1rem);
+  // filter: var(--sm2);
   // background-image: url('/src/assets/textured-paper.png');
 }
 

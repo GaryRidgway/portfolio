@@ -10,7 +10,19 @@
     --body-text: #cacaca;
     --border-color: rgb(255 255 255 / 43%);
     --textblock-bg: rgb(0 0 0 / 13%);
-    --warm-sun: #c8c1af;
+    --warm-sun: rgb(237,232,221);
+    --mint: rgb(112 160 130);
+    --mariana-n: 24, 35, 52;
+    --mariana-d-n: 8, 12, 18;
+    --mariana: rgb(var(--mariana-n));
+
+    /* Shadows */
+    /* I love this codepen so much. */
+    /* https://codepen.io/sdthornton/pen/wBZdXq */
+    --sm1: drop-shadow(0 1px  3px  rgba(0,0,0,0.12)) drop-shadow( 0 1px 2px   rgba(0,0,0,0.24));
+    --sm2: drop-shadow(0 3px  6px  rgba(0,0,0,0.16)) drop-shadow( 0 3px 6px   rgba(0,0,0,0.23));
+    --sm3: drop-shadow(0 10px 20px rgba(0,0,0,0.19)) drop-shadow( 0 10px 20px rgba(0,0,0,0.23));
+    --sm4: drop-shadow(0 14px 28px rgba(0,0,0,0.25)) drop-shadow( 0 14px 28px rgba(0,0,0,0.22));
 
     /* Base styles */
     font-size: 18px;

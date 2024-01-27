@@ -9,6 +9,7 @@ import landingPad from './components/landingPad/landingPad.vue';
 
 <template>
   <flow-border></flow-border>
+  <div class='vignette'></div>
   <div class='test'>
     <!-- <Display
       title="RaGe"
@@ -57,6 +58,34 @@ import landingPad from './components/landingPad/landingPad.vue';
 </template>
 
 <style lang="scss" scoped>
+.vignette {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  z-index: 200;
+  background: rgb(var(--mariana-d-n));
+  --gradient-opacity: 0.8;
+  background: 
+    radial-gradient(circle,
+      rgba(var(--mariana-d-n), 0) 75%,
+      rgba(var(--mariana-d-n), var(--gradient-opacity)) 94%,
+      rgba(var(--mariana-d-n), var(--gradient-opacity)) 98%
+    ),
+    linear-gradient(0deg,
+      rgba(var(--mariana-d-n), var(--gradient-opacity)) 0%,
+      rgba(var(--mariana-d-n), 0) 14%,
+      rgba(var(--mariana-d-n), 0) 86%,
+      rgba(var(--mariana-d-n), var(--gradient-opacity)) 100%
+    ),
+    linear-gradient(90deg,
+      rgba(var(--mariana-d-n), var(--gradient-opacity)) 0%,
+      rgba(var(--mariana-d-n), 0) 11%,
+      rgba(var(--mariana-d-n), 0) 89%,
+      rgba(var(--mariana-d-n), var(--gradient-opacity)) 100%
+    );
+  pointer-events: none;
+}
 .test {
   height: calc(100vh - 100px);
   margin: 50px auto;
