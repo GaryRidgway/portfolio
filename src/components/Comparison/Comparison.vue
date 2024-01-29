@@ -34,11 +34,11 @@ nextTick(() => {
     <div class="image-slider-container">
         <!-- Upper Image -->
         <div class="image background-image">
-            <img src="/src/assets/Rage/RageGoldMin.png">
+            <img src="/src/assets/images/Rage/RageGoldMin.png">
         </div>
         <!-- Lower Image -->
         <div class="image foreground-image">
-            <img src="/src/assets/Rage/RageStartMin.png">
+            <img src="/src/assets/images/Rage/RageStartMin.png">
         </div>
 
         <!-- Range Input -->

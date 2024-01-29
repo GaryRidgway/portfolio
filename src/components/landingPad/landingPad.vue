@@ -1,27 +1,44 @@
 <script setup>
+import GlassPane from '../glassPane/glassPane.vue';
+
 </script>
 
 <template>
 <div id='landing-pad'>
   <div id='measurer'></div>
-  <div id='marbled'>
-    <img src='/src/assets/marbleBG.png' />
+  <div id='marbled' class='paper-border'>
+    <img src='/src/assets/images/PaperTex2.png' />
   </div>
-  <div class='backdrop-paper'></div>
+  <div class='backdrop-paper paper-border'>
+    <img src='/src/assets/images/PaperTex2.png' />
+  </div>
   <!-- <div class='decoration'></div> -->
   <div id='portrait'>
-    <img src='/src/assets/selfPortraitWarpCropped.jpg' />
-    <img src='/src/assets/selfPortraitWarpCropped.jpg' />
-    <img src='/src/assets/selfPortraitWarpCropped.jpg' />
-    <img src='/src/assets/selfPortraitWarpCropped.jpg' />
-    <img src='/src/assets/selfPortraitWarpCropped.jpg' />
+    <img src='/src/assets/images/selfPortraitWarpCropped.jpg' />
+    <img src='/src/assets/images/selfPortraitWarpCropped.jpg' />
+    <img src='/src/assets/images/selfPortraitWarpCropped.jpg' />
+    <img src='/src/assets/images/selfPortraitWarpCropped.jpg' />
+    <img src='/src/assets/images/selfPortraitWarpCropped.jpg' />
     <span class='year'>Est. 1994</span>
   </div>
   <h1 id='landing-pad-title'>Alan Way</h1>
+  <GlassPane text='Alan Way'></GlassPane>
 </div>
 </template>
 
 <style lang="scss" scoped>
+.paper-border {
+  border-top: 3px solid rgb(255 245 224);
+  border-left: 3px solid rgb(198 190 171);
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.3;
+  }
+}
 
 #landing-pad {
   position: absolute;
@@ -33,8 +50,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-
+  filter: var(--sm3);
 
   .backdrop-paper {
     width: 24%;
@@ -60,20 +76,11 @@
   width: calc(100% - 15%);
   height: calc(100% - 2%);
   margin: 2% 15% 0 0;
-  overflow: hidden;
+  // overflow: hidden;
   aspect-ratio: 1/0.65;
   // filter: contrast(1.6) saturate(0.4) brightness(1);
-  background-color: var(--mint);
-    filter: var(--sm1);
-
-  img {
-    height: 100%;
-    aspect-ratio: 1/0.65;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: none;
-  }
+  background-color: var(--warm-sun);
+  filter: var(--sm1);
 }
 
 #portrait {
@@ -195,7 +202,7 @@
   position: absolute;
   font-size: clamp(2.25rem, calc(11.4074vw - 2.0278rem), 6.1rem);
   // filter: var(--sm2);
-  // background-image: url('/src/assets/textured-paper.png');
+  // background-image: url('/src/assets/images/textured-paper.png');
 }
 
 .decoration {
