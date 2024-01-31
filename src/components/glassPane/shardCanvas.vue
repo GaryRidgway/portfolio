@@ -115,7 +115,7 @@
                     sketch.clear();
                     sketch.fill(fill_c);
                     sketch.strokeWeight(1);
-                    sketch.stroke(sketch.color("rgba(255,255,255,0.5)"));
+                    sketch.stroke(sketch.color("rgba(255,255,255,0.2)"));
 
                     // DEBUG: show cursor click position.
                     // sketch.circle(canvas_dims.x/2, canvas_offset, 20)
@@ -259,8 +259,9 @@
                 let MPH_velocity = 4;
                 // Max preset horizontal velocity.
                 let MPV_velocity = 0.6;
-                let g_acceleration = 0.2;
-                let maxVelocity = 9.8;
+                let g_acceleration = 0.5;
+                let maxVelocity = 13;
+                let varianceMult = 5;
                 this.pos = {
                     x: iPosX,
                     y: iPosY
@@ -274,7 +275,7 @@
                         2, 2, 2, 2, 
                     ];
                     let weightedSelection = Math.floor(Math.random() * weights.length)
-                    this.countDown += Math.floor(Math.random() * 15 * weights[weightedSelection]);
+                    this.countDown += Math.floor(Math.random() * varianceMult * weights[weightedSelection]);
                 }
 
                 this.id = shardCounter;
@@ -966,12 +967,14 @@
 
 <style lang="scss">
     div[id^="glassCanvas"] {
-        position: fixed;
+        position: absolute;
         pointer-events: none;
         width: 100vw;
         height: 100vh;
-        left: 0;
-        top: 0;
+        left: -105px;
+        top: -105px;
+        transform: translateZ(0px);
+        animation: glassPush 0.3s ease-in-out forwards;
 
         canvas {
             position: absolute;
@@ -986,5 +989,10 @@
                 opacity: 1;
             }
         }
+    }
+
+    @keyframes glassPush {
+        0% { transform: translateZ(0px); }
+        100% { transform: translateZ(200px);}
     }
 </style>

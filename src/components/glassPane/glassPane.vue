@@ -116,8 +116,19 @@ import p5 from 'p5';
                 y: 136
             }
 
+            function reset_animation(ID) {
+                var el = document.getElementById(ID);
+                el.style.animation = 'none';
+                el.offsetHeight; /* trigger reflow */
+                el.style.animation = null; 
+            }
+
             // https://stackoverflow.com/questions/6348494/addeventlistener-vs-onclick
             glass_pane.addEventListener("click", function (e) {
+
+                // Reset pane animations.
+                reset_animation('glassCanvas-1');
+                reset_animation('glassCanvas-2');
 
                 // The next bit is a mixture of these.
                 // https://www.codegrepper.com/code-examples/javascript/javascript+get+mouse+position+relative+to+element
@@ -293,29 +304,6 @@ import p5 from 'p5';
         justify-content: center;
         align-items: center;
         pointer-events: none;
-
-        div[id^="glassCanvas"] {
-            position: fixed;
-            pointer-events: none;
-            width: 100vw;
-            height: 100vh;
-            left: 0;
-            top: 0;
-
-            canvas {
-                position: absolute;
-                pointer-events: none;
-                filter: drop-shadow(10px 3px 10px rgba(0, 0, 0, 0.6))
-                    drop-shadow(-10px -3px 10px rgba(0, 0, 0, 0.6));
-                opacity: 0;
-                filter: drop-shadow(10px 3px 10px rgba(0, 0, 0, 0.6))
-                    drop-shadow(-10px -3px 10px rgba(0, 0, 0, 0.6));
-
-                &.cracked {
-                    opacity: 1;
-                }
-            }
-        }
 
         .pane-clip-brace {
             width: 800px;
@@ -655,10 +643,10 @@ import p5 from 'p5';
         }
 
         #tamp {
-            position: fixed;
+            position: absolute;
             pointer-events: none;
-            left: 0;
-            top: 0;
+            left: -105px;
+            top: -105px;
             width: 100vw;
             height: 100vw;
 
@@ -673,13 +661,13 @@ import p5 from 'p5';
                             animation: tamp-wave 0.1s normal;
                         }
                         &-1 {
-                            animation: tamp-wave 0.3s normal;
+                            animation: tamp-wave 0.2s normal;
                         }
                         &-2 {
-                            animation: tamp-wave 0.5s normal;
+                            animation: tamp-wave 0.3s normal;
                         }
                         &-3 {
-                            animation: tamp-wave 0.7s normal;
+                            animation: tamp-wave 0.4s normal;
                         }
                     }
                 }
@@ -739,7 +727,7 @@ import p5 from 'p5';
             // backdrop-filter: blur(15px);
         }
         40% {
-            opacity: 0.2;
+            opacity: 0.15;
             // backdrop-filter: blur(15px);
         }
         70% {
