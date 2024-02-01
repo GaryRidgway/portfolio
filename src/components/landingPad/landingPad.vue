@@ -21,15 +21,20 @@ import GlassPane from '../glassPane/glassPane.vue';
     <img src='/src/assets/images/selfPortraitWarpCropped.jpg' />
     <span class='year'>Est. 1994</span>
   </div>
-  <h1 id='landing-pad-title'>Alan Way</h1>
-  <GlassPane text='Alan Way'></GlassPane>
+  <div id='landing-pad-title' class='paper-border'>
+    <img src='/src/assets/images/PaperTex2.png' />
+    <h1>Alan Way</h1>
+  </div>
+  <!-- <GlassPane text='Alan Way'></GlassPane> -->
 </div>
 </template>
 
 <style lang="scss" scoped>
 .paper-border {
-  border-top: 3px solid rgb(255 245 224);
-  border-left: 3px solid rgb(198 190 171);
+  border-top: 2px solid rgb(255 245 224);
+  border-left: 2px solid rgb(198 190 171);
+  filter: var(--sm1);
+  background-color: var(--warm-sun);
 
   img {
     height: 100%;
@@ -58,7 +63,6 @@ import GlassPane from '../glassPane/glassPane.vue';
     position: absolute;
     left: 78%;
     top: -7%;
-    background-color: var(--warm-sun);
     filter: var(--sm2);
   }
 }
@@ -78,9 +82,6 @@ import GlassPane from '../glassPane/glassPane.vue';
   margin: 2% 15% 0 0;
   // overflow: hidden;
   aspect-ratio: 1/0.65;
-  // filter: contrast(1.6) saturate(0.4) brightness(1);
-  background-color: var(--warm-sun);
-  filter: var(--sm1);
 }
 
 #portrait {
@@ -191,19 +192,62 @@ import GlassPane from '../glassPane/glassPane.vue';
 }
 
 #landing-pad-title {
-
-  font-family: 'Playfair Display', serif;
-  text-transform: uppercase;
-  color: #202020;
   left: -4%;
-  top: 3%;
-  // background-color: #d19a42;
-  padding: 5px 60px 9px;
+  top: 18%;
+  padding: 15px 60px 19px;
   position: absolute;
-  font-size: clamp(2.25rem, calc(11.4074vw - 2.0278rem), 6.1rem);
-  // filter: var(--sm2);
-  // background-image: url('/src/assets/images/textured-paper.png');
+  filter: var(--sm3);
+  // background-color: #ebac0c;
+  background-color: hsl(40 81% 46% / 1);
+  border-left-color: #ffc028;
+  border-top-color: #ebbb46;
+
+  img {
+    position: absolute;
+    height: 200%;
+    width: 200%;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    clip-path: polygon(0% 0%, 50% 0%, 50% 50%, 0% 50%);
+    opacity: 0.155;
+    filter: invert(28%) sepia(100%) hue-rotate(4deg) saturate(3);
+  }
+
+  &:before {
+    // content: "";
+    // position: absolute;
+    // height: 100%;
+    // width: 100%;
+    // left: 0;
+    // top: 0;
+    // opacity: 1;
+    // background-image: url(/src/assets/images/PaperTex2.png);
+  }
+
+  h1 {
+    font-family: "Playfair Display", serif;
+    text-transform: uppercase;
+    font-size: clamp(2.25rem, 11.4074vw - 2.0278rem, 6.1rem);
+    background-clip: text;
+    margin: 0;
+    color: transparent;
+    background-color: rgb(24 34 43);
+
+    &:before {
+      content: "Alan Way";
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      opacity: 0.1;
+      background-image: url(/src/assets/images/PaperTex2.png);
+      background-clip: text;
+      pointer-events: none;
+    }
+  }
 }
+
+  
 
 .decoration {
     width: 93%;
