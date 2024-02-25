@@ -1,6 +1,7 @@
 :root {
     /* Sizing */
     --content-max-width: 1140px;
+    --landing-max-width: calc(var(--content-max-width) * .75);
     --spacing:1.25rem;
     --slider-width: 50rem;
     --slider-height: 30rem;
@@ -24,16 +25,26 @@
     --mariana-d-n: 8, 12, 18;
     --mariana: rgb(var(--mariana-n));
 
+    --wrgb: 255, 255, 255;
+
     /* Shadows */
     /* I love this codepen so much. */
     /* https://codepen.io/sdthornton/pen/wBZdXq */
-    --sm1: drop-shadow(0 1px  3px  rgba(0,0,0,0.12)) drop-shadow( 0 1px 2px   rgba(0,0,0,0.24));
-    --sm2: drop-shadow(0 3px  6px  rgba(0,0,0,0.16)) drop-shadow( 0 3px 6px   rgba(0,0,0,0.23));
-    --sm3: drop-shadow(0 10px 20px rgba(0,0,0,0.19)) drop-shadow( 0 10px 20px rgba(0,0,0,0.23));
-    --sm4: drop-shadow(0 14px 28px rgba(0,0,0,0.25)) drop-shadow( 0 14px 28px rgba(0,0,0,0.22));
+    --sm1: drop-shadow(0 1px  3px  rgba(0,0,0,0.12)) drop-shadow( 0 1px  2px  rgba(0,0,0,0.24));
+    --sm2: drop-shadow(0 3px  6px  rgba(0,0,0,0.16)) drop-shadow( 0 3px  6px  rgba(0,0,0,0.23));
+    --sm3: drop-shadow(0 7px  13px rgba(0,0,0,0.19)) drop-shadow( 0 7px  13px rgba(0,0,0,0.23));
+    --sm4: drop-shadow(0 10px 20px rgba(0,0,0,0.19)) drop-shadow( 0 10px 20px rgba(0,0,0,0.23));
+    --sm5: drop-shadow(0 14px 28px rgba(0,0,0,0.25)) drop-shadow( 0 14px 28px rgba(0,0,0,0.22));
 
     /* Base styles */
     font-size: 18px;
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
 }
+
+/* https://www.w3schools.com/howto/howto_css_disable_text_selection.asp */
+.prevent-select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }

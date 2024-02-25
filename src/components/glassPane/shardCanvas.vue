@@ -1,5 +1,5 @@
 <template>
-    <div :id="'glassCanvas-' + canvas_no" class="glass-break-canvas"></div>
+    <div :id="'glassCanvas-' + idPrefix + canvas_no" class="glass-break-canvas"></div>
 </template>
 
 <script>
@@ -10,6 +10,10 @@
         props: {
             canvas_no: Number,
             canvas_id: String,
+            idPrefix: {
+                type: String,
+                default: ''
+            },
             shard_cnt: Number,
             shard_size: Number,
             countdown: Number,
@@ -52,7 +56,7 @@
             // Set up the canvas.
             this.canvasedSketch = new p5(function(sketch) {
                 let canvas_data_id = $props.canvas_id;
-                let canvas_data_parent = 'glassCanvas-' + $props.canvas_no;
+                let canvas_data_parent = 'glassCanvas-' + $props.idPrefix + $props.canvas_no;
                 let canvas_data_shard_cnt = $props.shard_cnt;
                 let canvas_data_shard_size = $props.shard_size;
                 let fill_c = sketch.color(glass_color);
@@ -60,7 +64,6 @@
                 let canvasElement;
                 let distFromTop = 0;
                 // Programatically get this some day.
-                let glassHeight = 136
                 let lowerBound = canvas_dims.y;
 
                 // We use both these variables to make sure the audio plays
@@ -971,10 +974,13 @@
         pointer-events: none;
         width: 100vw;
         height: 100vh;
-        left: -105px;
-        top: -105px;
-        transform: translateZ(0px);
-        animation: glassPush 0.3s ease-in-out forwards;
+        // This feels wrong...
+        // left: -120px;
+        left: calc(calc(-1 * var(--gPosX) + (-50vw + var(--braceWidth) * 0.5)));
+        // top: -407px;
+        top: calc(calc(-1 * var(--gPosY) + (-50vh + var(--braceHeight) * 0.5)));
+        // transform: translate(calc(-1 * var(--gPosX)), calc(-1 * var(--gPosY)));
+        // animation: glassPush 0.3s ease-in-out forwards;
 
         canvas {
             position: absolute;
@@ -991,8 +997,8 @@
         }
     }
 
-    @keyframes glassPush {
-        0% { transform: translateZ(0px); }
-        100% { transform: translateZ(200px);}
-    }
+    // @keyframes glassPush {
+    //     0% { transform: translateZ(0px); }
+    //     100% { transform: translateZ(200px);}
+    // }
 </style>

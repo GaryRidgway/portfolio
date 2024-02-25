@@ -3,11 +3,12 @@ import shardCanvas from './shardCanvas.vue';
 import p5 from 'p5';
 </script>
 <template>
-    <div class="fullglass">
+    <div :id= "'glass' + idPrefix" :class="'fullglass ' + classes ">
         <shard-canvas
             ref = "shard-canvas-1"
             :canvas_no = "1"
             canvas_id = "back_blast"
+            :idPrefix = idPrefix
             :shard_cnt = 7
             :shard_size = 35
             :countdown = 1
@@ -33,7 +34,8 @@ import p5 from 'p5';
                   <h1 id="portfolio-name" class="modern">
                     <div class="underlay"></div>
                     <span class="title-holder noselect">
-                      <span>{{text}}</span>
+                        <span class="prevent-select decorative">{{text}}</span>
+                        <span class="prevent-select">{{text}}</span>
                     </span>
                   </h1>
                 </div>
@@ -56,6 +58,7 @@ import p5 from 'p5';
             ref = "shard-canvas-2"
             :canvas_no = "2"
             canvas_id = "front_blast"
+            :idPrefix = idPrefix
             :shard_cnt = 7
             :shard_size = 3
             :countdown = 0
@@ -85,7 +88,9 @@ import p5 from 'p5';
     export default {
         name: 'glassPane',
         props: {
-            text: String
+            text: String,
+            classes: String,
+            idPrefix: String
         },
         components: {
             shardCanvas,
@@ -97,7 +102,12 @@ import p5 from 'p5';
         },
         // https://stackoverflow.com/questions/56411378/how-to-add-vanilla-javascript-to-vue-js-project
         mounted() {
-            let panes = document.querySelectorAll(".glass-pane, .shadow-pane");
+            let GP = this;
+            let gpid = "#glass" + GP.idPrefix;
+            let panes = document.querySelectorAll(
+                gpid + " .glass-pane, \
+                #glass" + GP.idPrefix + " .shadow-pane"
+            );
             let glass_pane = panes[1];
             let clicks = 0;
 
@@ -127,8 +137,8 @@ import p5 from 'p5';
             glass_pane.addEventListener("click", function (e) {
 
                 // Reset pane animations.
-                reset_animation('glassCanvas-1');
-                reset_animation('glassCanvas-2');
+                reset_animation('glassCanvas-' + GP.idPrefix + '1');
+                reset_animation('glassCanvas-' + GP.idPrefix + '2');
 
                 // The next bit is a mixture of these.
                 // https://www.codegrepper.com/code-examples/javascript/javascript+get+mouse+position+relative+to+element
@@ -181,7 +191,7 @@ import p5 from 'p5';
                     let plate_crack_rule = "";
                     let plate_crack_bg_positioner_rule = "";
 
-                    positioning_pixel_rule = ".positioning-pixel {";
+                    positioning_pixel_rule = gpid + " .positioning-pixel {";
                     positioning_pixel_rule += "left: " + x + "px !important;";
                     positioning_pixel_rule += "top: " + y + "px !important;";
                     // positioning_pixel_rule +=
@@ -189,7 +199,8 @@ import p5 from 'p5';
                     positioning_pixel_rule += "}";
 
                     plate_crack_rule =
-                        ".positioning-pixel .nameplate, .positioning-pixel .faux-crack-bg {";
+                    gpid + " .positioning-pixel .nameplate, \
+                    #glass" + GP.idPrefix + " .positioning-pixel .faux-crack-bg {";
                     plate_crack_rule += "left: -" + x + "px !important;";
                     plate_crack_rule += "top: -" + y + "px !important;";
                     plate_crack_rule += "}";
@@ -214,17 +225,23 @@ import p5 from 'p5';
 
                     // Get the other style element index.
                     let other_style_element_index = (style_element_index + 1) % 2;
+                    console.log(other_style_element_index);
                     let other_style_element = document.querySelector(
-                        "style.click-styles-" + other_style_element_index
+                        "style.click-styles-" + GP.idPrefix + "-" + other_style_element_index
                     );
 
+                    let style_element_selector = 
+                        GP.idPrefix + "-click_style_element_" + style_element_index;
+                    let other_style_element_Selector =
+                        GP.idPrefix + "-click_style_element_" + other_style_element_index;
+
                     // Create a new stylesheet, and append it to the `head` element.
-                    stylesheets["click_style_element_" + style_element_index] = document.createElement("style");
-                    stylesheets["click_style_element_" + style_element_index].classList.add("click-styles-" + style_element_index);
-                    document.head.appendChild(stylesheets["click_style_element_" + style_element_index]);
+                    stylesheets[style_element_selector] = document.createElement("style");
+                    stylesheets[style_element_selector].classList.add("click-styles-" + GP.idPrefix + "-" + style_element_index);
+                    document.head.appendChild(stylesheets[style_element_selector]);
 
                     // Then, add the styles to the new dome element.
-                    stylesheets["click_style_element_" + style_element_index].innerHTML = positioning_pixel_rule + plate_crack_rule + plate_crack_bg_positioner_rule;
+                    stylesheets[style_element_selector].innerHTML = positioning_pixel_rule + plate_crack_rule + plate_crack_bg_positioner_rule;
 
                     // Then, wait for the next repaint...
                     // https://stackoverflow.com/questions/23253976/how-to-properly-wait-for-browser-reflow-repaint-to-finish
@@ -233,9 +250,9 @@ import p5 from 'p5';
                         if (other_style_element) {
                             other_style_element.remove();
                         }
-                        if (stylesheets["click_style_element_" + other_style_element_index]) {
+                        if (stylesheets[other_style_element_Selector]) {
                             // https://www.w3schools.com/howto/howto_js_remove_property_object.asp
-                            delete stylesheets["click_style_element_" + other_style_element_index];
+                            delete stylesheets[other_style_element_Selector];
                         }
                         style_element_index = other_style_element_index;
                     });
@@ -295,10 +312,17 @@ import p5 from 'p5';
 
 // https://webdevetc.com/programming-tricks/vue3/vue3-guides/vue-3-global-scss-sass-variables/
 <style lang="scss">
+    .glass-positioner {
+        position: relative;
+    }
+
     .fullglass {
+
+        --gPosX: -88px;
+        --gPosY: -119px;
         position: absolute;
-        left: -88px;
-        top: -119px;
+        left: calc(var(--braceWidth) * -0.5 + var(--gPosX));
+        top: calc(var(--braceHeight) * -0.5 + var(--gPosY));
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -306,8 +330,8 @@ import p5 from 'p5';
         pointer-events: none;
 
         .pane-clip-brace {
-            width: 800px;
-            height: 560px;
+            width: var(--braceWidth);
+            height: var(--braceHeight);
             display: flex;
             align-items: center;
             pointer-events: none;
@@ -318,32 +342,32 @@ import p5 from 'p5';
 
             .shadow-pane {
                 position: absolute;
-                width: 786px;
-                height: 136px;
+                width: var(--braceWidth);
+                height: var(--realPaneHeight);
                 overflow: hidden;
                 filter: drop-shadow(1px 2px 6px #000000) drop-shadow(1px 2px 6px #000000);
 
                 .faux-crack {
                     position: absolute;
-                    left: -373px;
-                    top: -324px;
-                    width: 800px;
-                    height: 530px;
+                    left: calc(-1 * var(--crackOffsetX));
+                    top: calc(-1 * var(--crackOffsetY));
+                    width: var(--braceWidth);
+                    height: var(--braceHeight);
 
                     &-bg {
                         background-color: var(--glass-undertone);
                         position: absolute;
                         left: 0px;
                         top: 0px;
-                        width: 786px;
-                        height: 136px;
+                        width: var(--braceWidth);
+                        height: var(--realPaneHeight);
 
                         &-positioner {
-                        position: absolute;
-                        width: 1px;
-                        height: 1px;
-                        left: 373px;
-                        top: 324px;
+                            position: absolute;
+                            width: 1px;
+                            height: 1px;
+                            left: var(--crackOffsetX);
+                            top: var(--crackOffsetY);
                         }
                     }
                 }
@@ -368,8 +392,8 @@ import p5 from 'p5';
             }
             .glass-pane {
                 position: relative;
-                width: 786px;
-                height: 136px;
+                width: var(--braceWidth);
+                height: var(--realPaneHeight);
                 cursor: pointer;
                 pointer-events: all;
                 // box-shadow: 5px 5px 12px 5px rgb(0 0 0 / 35%);
@@ -380,8 +404,8 @@ import p5 from 'p5';
 
                 .wave-fade-pane {
                     position: absolute;
-                    width: 786px;
-                    height: 136px;
+                    width: var(--braceWidth);
+                    height: var(--realPaneHeight);
                     left: 0;
                     top: 0;
                     animation: wave-fade 5s infinite;
@@ -431,17 +455,17 @@ import p5 from 'p5';
 
                     .clip-brace {
                         position: absolute;
-                        left: -373px;
-                        top: -324px;
-                        width: 800px;
-                        height: 530px;
+                        left: calc(-1 * var(--crackOffsetX));
+                        top: calc(-1 * var(--crackOffsetY));
+                        width: var(--braceWidth);
+                        height: var(--braceHeight);
 
                         .nameplate-positioner {
                             position: absolute;
                             width: 1px;
                             height: 1px;
-                            left: 373px;
-                            top: 324px;
+                            left: var(--crackOffsetX);
+                            top: var(--crackOffsetY);
 
                             .nameplate {
                                 position: absolute;
@@ -451,19 +475,19 @@ import p5 from 'p5';
                                 #portfolio-name {
                                     margin: 0;
                                     position: relative;
-                                    letter-spacing: 20px;
+                                    letter-spacing: 2px;
+                                    font-size: 2rem;
                                     -webkit-font-smoothing: antialiased;
                                     display: flex;
-                                    width: 786px;
-                                    height: 136px;
+                                    width: var(--braceWidth);
+                                    height: var(--realPaneHeight);
                                     justify-content: center;
                                     align-items: center;
                                     font-family: "Cinzel Decorative", sans-serif;
                                     font-weight: 100;
-                                    font-size: clamp(3rem, calc(3.3684vw + 1.2632rem), 5rem);
                                     -webkit-backdrop-filter: blur(15px); /*Safari 9+ */
                                     backdrop-filter: blur(15px); /* Chrome and Opera */
-                                    border-radius: 2px;
+                                    // border-radius: 2px;
                                     background-color: var(--clear-glass);
 
                                     &.modern {
@@ -472,18 +496,18 @@ import p5 from 'p5';
                                         text-transform: uppercase;
 
                                         .title-holder {
-                                            color: white;
-                                            width: calc(100% - 2px);
-                                            height: calc(100% - 2px);
+                                            color: rgba(156, 209, 220, 0.56);
+                                            width: 100%;
+                                            height: 100%;
                                             filter: drop-shadow(0px 0px 9px var(--soft-white));
-                                            border-top: 2px solid rgba(225, 225, 225, 0.3);
-                                            border-left: 1px solid rgba(225, 225, 225, 0.2);
-                                            border-right: 1px solid rgba(225, 225, 225, 0.4);
+                                            border-top: 1px solid rgba(var(--wrgb), 0.3);
+                                            border-left: 1px solid rgba(var(--wrgb), 0.2);
+                                            border-right: 1px solid rgba(var(--wrgb), 0.1);
 
                                             // inset shadow got from here: https://codepen.io/adambundy/pen/AvYvQG
                                             // padding: 2rem 9.2rem 1.5rem 10.3rem;
                                             // color: transparent;
-                                            background-color: var(--sunken-grey);
+                                            // background-color: var(--sunken-grey);
                                             // filter: drop-shadow(0px 0px 9px var(--glass-edge-white));
                                             text-shadow: 2px 2px 3px var(--soft-white-T);
                                             -webkit-background-clip: text;
@@ -493,9 +517,22 @@ import p5 from 'p5';
                                             align-items: center;
                                             justify-content: center;
 
-                                            .word-body {
-                                                font-size: clamp(2.5rem, calc(3.3684vw + 0.7632rem), 4.5rem);
-                                                margin-left: -7px;
+                                            // .word-body {
+                                            //     font-size: clamp(2.5rem, calc(3.3684vw + 0.7632rem), 4.5rem);
+                                            //     margin-left: -7px;
+                                            // }
+
+                                            .decorative {
+                                                position: absolute;
+                                                left: -0.5px;
+                                                top: -0.5px;
+                                                color: rgb(227 231 231);
+                                                width: 100%;
+                                                height: 100%;
+                                                display: flex;
+                                                justify-content: center;
+                                                align-items: center;
+                                                pointer-events: none;
                                             }
 
                                             span.first-letter:not(:first-child) {
@@ -504,14 +541,13 @@ import p5 from 'p5';
 
                                             &:before {
                                                 position: absolute;
-                                                content: "";
-                                                width: 70%;
-                                                height: 2px;
-                                                background: white;
+                                                content: pane-text;
+                                                // content: '';
+                                                width: 100%;
+                                                height: 100%;
                                                 text-align: center;
-                                                left: 15%;
-                                                bottom: 20px;
-                                                filter: drop-shadow(0px 0px 9px white);
+                                                left: 0;
+                                                bottom: 0;
                                             }
                                         }
 
@@ -527,8 +563,8 @@ import p5 from 'p5';
 
                     img {
                         position: absolute;
-                        width: 800px;
-                        height: auto;
+                        width: var(--braceWidth);
+                        height: var(--braceHeight);
                         pointer-events: none;
                         opacity: 0;
 
@@ -571,68 +607,66 @@ import p5 from 'p5';
                             }
 
                             &1 {
-                                left: -1171px;
-                                top: -852px;
+                                left: calc(-1 * var(--crackOffsetX) - var(--braceWidth));
+                                top: calc(-1 * var(--crackOffsetY) - var(--braceHeight));
 
                                 transform: scale(-1, -1);
                             }
 
                             &2 {
-                                left: -372px;
-                                top: -852px;
+                                left: calc(-1 * var(--crackOffsetX));
+                                top: calc(-1 * var(--crackOffsetY) - var(--braceHeight));
 
                                 transform: scale(1, -1);
                             }
 
                             &3 {
-                                left: 426px;
-                                top: -852px;
+                                left: calc(-1 * var(--crackOffsetX) + var(--braceWidth));
+                                top: calc(-1 * var(--crackOffsetY) - var(--braceHeight));
 
                                 transform: scale(-1, -1);
                             }
 
                             &4 {
-                                left: -1171px;
-                                top: -324px;
+                                left: calc(-1 * var(--crackOffsetX) - var(--braceWidth));
+                                top: calc(-1 * var(--crackOffsetY));
 
                                 transform: scale(-1, 1);
                             }
 
                             &5 {
-                                // left: -373px;
-                                // top: -324px;
                                 left: 0;
                                 top: 0;
                                 position: absolute;
                             }
 
                             &6 {
-                                left: 426px;
-                                top: -324px;
+                                left: calc(-1 * var(--crackOffsetX) + var(--braceWidth));
+                                top: calc(-1 * var(--crackOffsetY));
 
                                 transform: scale(-1, 1);
                             }
 
                             &7 {
-                                left: -1171px;
-                                // Should be mathematically 206, but adjusted for view.
-                                top: 191px;
+                                left: calc(-1 * var(--crackOffsetX) - var(--braceWidth));
+                                // Not mathematically correct, but visually makes more sense.
+                                top: var(--bottomCrackFlippedOffset);
 
                                 transform: scale(-1, -1);
                             }
 
                             &8 {
-                                left: -373px;
-                                // Should be mathematically 206, but adjusted for view.
-                                top: 191px;
+                                left: calc(-1 * var(--crackOffsetX));
+                                // Not mathematically correct, but visually makes more sense.
+                                top: var(--bottomCrackFlippedOffset);
 
                                 transform: scale(1, -1);
                             }
 
                             &9 {
-                                left: 426px;
-                                // Should be mathematically 206, but adjusted for view.
-                                top: 191px;
+                                left: calc(-1 * var(--crackOffsetX) + var(--braceWidth));
+                                // Not mathematically correct, but visually makes more sense.
+                                top: var(--bottomCrackFlippedOffset);
 
                                 transform: scale(-1, -1);
                             }
@@ -643,10 +677,13 @@ import p5 from 'p5';
         }
 
         #tamp {
+            // remove vvv
+            display: none;
             position: absolute;
             pointer-events: none;
-            left: -105px;
-            top: -105px;
+            // This feels wrong...
+            left: calc(-1 * var(--gPosX));
+            top: calc(-1 * var(--gPosY));
             width: 100vw;
             height: 100vw;
 
@@ -703,7 +740,7 @@ import p5 from 'p5';
             filter: opacity(0);
         }
         33% {
-            filter: opacity(0.4);
+            filter: opacity(0.1);
         }
         40% {
             background-color: transparent;
@@ -724,15 +761,15 @@ import p5 from 'p5';
             width: 20px;
             height: 20px;
             opacity: 0;
-            // backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
         }
         40% {
             opacity: 0.15;
-            // backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
         }
         70% {
             opacity: 0.04;
-            // backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
             width: 80px;
             height: 80px;
         }
@@ -742,75 +779,83 @@ import p5 from 'p5';
         100% {
             width: 200px;
             height: 200px;
-            // backdrop-filter: blur(30px);
+            backdrop-filter: blur(30px);
             opacity: 0;
         }
     }
 
     :root {
-    --matrix-grey: #272727;
-    // --matrix-grey: #343434;
-    --sunken-grey: #141414;
-    --melancholy-red: #b7482f;
-    --florea: #0f4785;
-    --cvijet: #041e3b;
-    --somber-umber: #5d0505;
-    --soft-white: #f3f3f3;
-    --soft-white-T: rgba(159, 159, 159, 0.31);
-    --clear-glass: rgba(156, 209, 220, 0.2);
-    --clear-glass-light: rgba(0, 215, 255, 0.1);
-    --glass-undertone: rgba(111, 206, 255, 0.13);
-    --glass-edge-white: rgba(255, 255, 255, 0.33);
-  
-    // Crack shadow variables.
-    --crack-shadow-horizontal-offset: 4px;
-    --crack-shadow-vertical-offset: 4px;
-    --crack-shadow-spread: 2px;
-  
-    // font-family: 'Cinzel Decorative', cursive;
-    // font-family: 'Roboto', sans-serif;
-    --crack-path: polygon(
-      -400% -400%,
-      500% 0%,
-      500% 500%,
-      -400% 500%,
-      45.4% 63.8%,
-      46.2% 63%,
-      46.4% 63.2%,
-      46.6% 64.2%,
-      47% 64.4%,
-      46.8% 66.5%,
-      47.35% 66.2%,
-      47.48% 65.2%,
-      48.2% 65.2%,
-      48.4% 64.2%,
-      49.9% 62.8%,
-      50% 61.8%,
-      50.2% 61.2%,
-      50.25% 60.8%,
-      49.4% 60.3%,
-      48.85% 59.7%,
-      48.5% 61%,
-      47.7% 60.6%,
-      46.9% 60.8%,
-      45.9% 56.8%,
-      45.2% 53.5%,
-      44.7% 53.3%,
-      43.4% 54.33%,
-      43% 54.65%,
-      42.6% 54.2%,
-      41.7% 55%,
-      43.45% 57.1%,
-      43.45% 57.8%,
-      42.9% 58.9%,
-      43.2% 59.2%,
-      43.76% 61.3%,
-      43.9% 61.5%,
-      43.95% 62.2%,
-      44.3% 63.2%,
-      44.5% 63.4%,
-      45.4% 65%,
-      -400% 500%
-    );
-  }
+
+        --braceWidth: 300px;
+        --braceHeight: calc(var(--braceWidth) * 0.6616);
+        --bottomCrackFlippedOffset: calc(var(--braceWidth) * 0.2366);
+        --realPaneHeight: calc(var(--braceWidth) * 0.173);
+        --crackOffsetX: calc(var(--braceWidth) * 0.4746);
+        --crackOffsetY: calc(var(--braceWidth) * 0.4122);
+
+        --matrix-grey: #272727;
+        // --matrix-grey: #343434;
+        --sunken-grey: #141414;
+        --melancholy-red: #b7482f;
+        --florea: #0f4785;
+        --cvijet: #041e3b;
+        --somber-umber: #5d0505;
+        --soft-white: #f3f3f3;
+        --soft-white-T: rgba(159, 159, 159, 0.31);
+        --clear-glass: rgba(156, 209, 220, 0.2);
+        --clear-glass-light: rgba(0, 215, 255, 0.1);
+        --glass-undertone: rgba(111, 206, 255, 0.13);
+        --glass-edge-white: rgba(255, 255, 255, 0.33);
+    
+        // Crack shadow variables.
+        --crack-shadow-horizontal-offset: 4px;
+        --crack-shadow-vertical-offset: 4px;
+        --crack-shadow-spread: 2px;
+    
+        // font-family: 'Cinzel Decorative', cursive;
+        // font-family: 'Roboto', sans-serif;
+        --crack-path: polygon(
+        -400% -400%,
+        500% 0%,
+        500% 500%,
+        -400% 500%,
+        45.4% 63.8%,
+        46.2% 63%,
+        46.4% 63.2%,
+        46.6% 64.2%,
+        47% 64.4%,
+        46.8% 66.5%,
+        47.35% 66.2%,
+        47.48% 65.2%,
+        48.2% 65.2%,
+        48.4% 64.2%,
+        49.9% 62.8%,
+        50% 61.8%,
+        50.2% 61.2%,
+        50.25% 60.8%,
+        49.4% 60.3%,
+        48.85% 59.7%,
+        48.5% 61%,
+        47.7% 60.6%,
+        46.9% 60.8%,
+        45.9% 56.8%,
+        45.2% 53.5%,
+        44.7% 53.3%,
+        43.4% 54.33%,
+        43% 54.65%,
+        42.6% 54.2%,
+        41.7% 55%,
+        43.45% 57.1%,
+        43.45% 57.8%,
+        42.9% 58.9%,
+        43.2% 59.2%,
+        43.76% 61.3%,
+        43.9% 61.5%,
+        43.95% 62.2%,
+        44.3% 63.2%,
+        44.5% 63.4%,
+        45.4% 65%,
+        -400% 500%
+        );
+    }
 </style>

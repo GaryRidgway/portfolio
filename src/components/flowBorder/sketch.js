@@ -15,7 +15,7 @@ const s1 = function (sketch) {
     sketch.numPar = function() {
         const sketchArea = sketch.windowWidth * sketch.windowHeight;
         const refArea = 360000;
-        const refParticles = 700;
+        const refParticles = 1000;
         const newParticleCount = (refParticles*sketchArea) / refArea;
         return Math.min(newParticleCount, 1500);
     }();

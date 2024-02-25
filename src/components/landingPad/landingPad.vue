@@ -7,32 +7,45 @@ import GlassPane from '../glassPane/glassPane.vue';
 <div id='landing-pad'>
   <div id='measurer'></div>
   <div id='marbled' class='paper-border'>
-    <img src='/src/assets/images/PaperTex2.png' />
+    <img class="prevent-select" draggable="false" src='/src/assets/images/PaperTex2.png' />
   </div>
   <div class='backdrop-paper paper-border'>
-    <img src='/src/assets/images/PaperTex2.png' />
+    <img class="prevent-select" draggable="false" src='/src/assets/images/PaperTex2.png' />
   </div>
   <!-- <div class='decoration'></div> -->
   <div id='portrait'>
-    <img src='/src/assets/images/selfPortraitWarpCropped.jpg' />
-    <img src='/src/assets/images/selfPortraitWarpCropped.jpg' />
-    <img src='/src/assets/images/selfPortraitWarpCropped.jpg' />
-    <img src='/src/assets/images/selfPortraitWarpCropped.jpg' />
-    <img src='/src/assets/images/selfPortraitWarpCropped.jpg' />
+    <img class="prevent-select" draggable="false" src='/src/assets/images/selfPortraitWarpCropped.jpg' />
+    <img class="prevent-select" draggable="false" src='/src/assets/images/selfPortraitWarpCropped.jpg' />
+    <img class="prevent-select" draggable="false" src='/src/assets/images/selfPortraitWarpCropped.jpg' />
+    <img class="prevent-select" draggable="false" src='/src/assets/images/selfPortraitWarpCropped.jpg' />
+    <img class="prevent-select" draggable="false" src='/src/assets/images/selfPortraitWarpCropped.jpg' />
     <span class='year'>Est. 1994</span>
   </div>
   <div id='landing-pad-title' class='paper-border'>
-    <img src='/src/assets/images/PaperTex2.png' />
+    <img class="prevent-select" draggable="false" src='/src/assets/images/PaperTex2.png' />
     <h1>Alan Way</h1>
   </div>
-  <!-- <GlassPane text='Alan Way'></GlassPane> -->
+  <!-- <div id='details'>
+    <p>Designer</p>
+    <p>Artist</p>
+    <p>Developer</p>
+  </div> -->
+  <div class="glass-positioner">
+    <GlassPane :idPrefix='1' classes="" text='Developer'></GlassPane>
+  </div>
+  <div class="glass-positioner">
+    <GlassPane :idPrefix='2' classes="" text='Artist'></GlassPane>
+  </div>
+  <div class="glass-positioner">
+    <GlassPane :idPrefix='3' classes="" text='Performer'></GlassPane>
+  </div>
 </div>
 </template>
 
 <style lang="scss" scoped>
 .paper-border {
-  border-top: 2px solid rgb(255 245 224);
-  border-left: 2px solid rgb(198 190 171);
+  border-top: 1px solid rgb(255 245 224);
+  border-left: 1px solid rgb(198 190 171);
   filter: var(--sm1);
   background-color: var(--warm-sun);
 
@@ -87,7 +100,7 @@ import GlassPane from '../glassPane/glassPane.vue';
 #portrait {
   width: 45%;
   height: 126%;
-  margin: 7.5% 0 0 45%;
+  margin: 6.5% 0 0 45%;
   // overflow: hidden;
   position: absolute;
   filter: var(--sm2);
@@ -192,9 +205,9 @@ import GlassPane from '../glassPane/glassPane.vue';
 }
 
 #landing-pad-title {
-  left: -4%;
-  top: 18%;
-  padding: 15px 60px 19px;
+  left: -5%;
+  top: 21%;
+  padding: 1.4% 9% 1.9%;
   position: absolute;
   filter: var(--sm3);
   // background-color: #ebac0c;
@@ -228,7 +241,7 @@ import GlassPane from '../glassPane/glassPane.vue';
   h1 {
     font-family: "Playfair Display", serif;
     text-transform: uppercase;
-    font-size: clamp(2.25rem, 11.4074vw - 2.0278rem, 6.1rem);
+    font-size: 4.25rem;
     background-clip: text;
     margin: 0;
     color: transparent;
@@ -239,7 +252,7 @@ import GlassPane from '../glassPane/glassPane.vue';
       position: absolute;
       height: 100%;
       width: 100%;
-      opacity: 0.1;
+      opacity: 0.15;
       background-image: url(/src/assets/images/PaperTex2.png);
       background-clip: text;
       pointer-events: none;
@@ -247,8 +260,29 @@ import GlassPane from '../glassPane/glassPane.vue';
   }
 }
 
-  
+#details {
+  position: absolute;
+  left: 0;
+  bottom: 0;
 
+  p {
+    background-clip: text;
+    color: transparent;
+    background-color: rgb(24 34 43);
+    font-family: 'Nothing You Could Do', cursive;
+
+    &:before {
+      content: "Alan Way";
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      opacity: 0.15;
+      background-image: url(/src/assets/images/PaperTex2.png);
+      background-clip: text;
+      pointer-events: none;
+    }
+  }
+}
 .decoration {
     width: 93%;
     height: 96%;
@@ -256,6 +290,23 @@ import GlassPane from '../glassPane/glassPane.vue';
     border: 2px solid #acacacb8;
     position: absolute;
     pointer-events: none;
+}
+
+.fullglass{
+  &#glass1 {
+    --gPosX: -222px;
+    --gPosY: 70px;
+  }
+
+  &#glass2 {
+    --gPosX: -222px;
+    --gPosY: 140px;
+  }
+
+  &#glass3 {
+    --gPosX: -222px;
+    --gPosY: 210px;
+}
 }
 
 </style>

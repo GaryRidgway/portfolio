@@ -8,7 +8,7 @@ import p5 from 'p5';
 export default class Particle {
     constructor(sketch) {
         this.display = true;
-        this.alpha = 5/255;
+        this.alpha = 10/255;
         this.power = 255;
         this.color = 'rgba(255, 189, 31,';
         this.white = 'rgba(255,255,255,';
