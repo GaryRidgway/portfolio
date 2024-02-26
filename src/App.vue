@@ -8,7 +8,7 @@ import landingPad from './components/landingPad/landingPad.vue';
 </script>
 
 <template>
-  <!-- <flow-border></flow-border> -->
+  <flow-border></flow-border>
   <div class='vignette'></div>
   <div class='test-container'>
     <div class='test'>

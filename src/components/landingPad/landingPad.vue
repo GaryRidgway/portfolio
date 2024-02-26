@@ -13,6 +13,9 @@ import GlassPane from '../glassPane/glassPane.vue';
     <img class="prevent-select" draggable="false" src='/src/assets/images/PaperTex2.png' />
   </div>
   <!-- <div class='decoration'></div> -->
+  <div class="ripped-fabric">
+    <img class="prevent-select" draggable="false" src='/src/assets/images/FabricRippedColor.png' />
+  </div>
   <div id='portrait'>
     <img class="prevent-select" draggable="false" src='/src/assets/images/selfPortraitWarpCropped.jpg' />
     <img class="prevent-select" draggable="false" src='/src/assets/images/selfPortraitWarpCropped.jpg' />
@@ -23,7 +26,8 @@ import GlassPane from '../glassPane/glassPane.vue';
   </div>
   <div id='landing-pad-title' class='paper-border'>
     <img class="prevent-select" draggable="false" src='/src/assets/images/PaperTex2.png' />
-    <h1>Alan Way</h1>
+    <h1 class="step-down-shadow prevent-select">Alan Way</h1>
+    <h1 class="name-clip">Alan Way</h1>
   </div>
   <!-- <div id='details'>
     <p>Designer</p>
@@ -95,6 +99,19 @@ import GlassPane from '../glassPane/glassPane.vue';
   margin: 2% 15% 0 0;
   // overflow: hidden;
   aspect-ratio: 1/0.65;
+}
+
+.ripped-fabric {
+  position: absolute;
+  width: 70%;
+  left: -77px;
+  top: -161px;
+  transform: rotate(32deg);
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 #portrait {
@@ -211,9 +228,9 @@ import GlassPane from '../glassPane/glassPane.vue';
   position: absolute;
   filter: var(--sm3);
   // background-color: #ebac0c;
-  background-color: hsl(40 81% 46% / 1);
-  border-left-color: #ffc028;
-  border-top-color: #ebbb46;
+  background-color: var(--yellow-paper-bg);
+  border-left-color: var(--yellow-paper-left-color);
+  border-top-color: var(--yellow-paper-top-color);
 
   img {
     position: absolute;
@@ -242,20 +259,36 @@ import GlassPane from '../glassPane/glassPane.vue';
     font-family: "Playfair Display", serif;
     text-transform: uppercase;
     font-size: 4.25rem;
-    background-clip: text;
     margin: 0;
-    color: transparent;
-    background-color: rgb(24 34 43);
 
-    &:before {
-      content: "Alan Way";
+    &.step-down-shadow {
       position: absolute;
-      height: 100%;
+      z-index: -1;
+      left: -1px;
+      top: -3px;
       width: 100%;
-      opacity: 0.15;
-      background-image: url(/src/assets/images/PaperTex2.png);
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--yellow-paper-dark-shadow)
+    }
+
+    &.name-clip {
+      color: transparent;
+      background-color: rgb(24 34 43);
       background-clip: text;
-      pointer-events: none;
+
+      &:before {
+        content: "Alan Way";
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        opacity: 0.15;
+        background-image: url(/src/assets/images/PaperTex2.png);
+        background-clip: text;
+        pointer-events: none;
+      }
     }
   }
 }
@@ -294,18 +327,18 @@ import GlassPane from '../glassPane/glassPane.vue';
 
 .fullglass{
   &#glass1 {
-    --gPosX: -222px;
-    --gPosY: 70px;
+    --gPosX: -252px;
+    --gPosY: 21px;
   }
 
   &#glass2 {
-    --gPosX: -222px;
-    --gPosY: 140px;
+    --gPosX: -234px;
+    --gPosY: 86px;
   }
 
   &#glass3 {
-    --gPosX: -222px;
-    --gPosY: 210px;
+    --gPosX: -216px;
+    --gPosY: 151px;
 }
 }
 

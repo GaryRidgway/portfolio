@@ -175,7 +175,7 @@ import p5 from 'p5';
                     let audio = new Audio(
                         "src/assets/audio/" + audioFile
                     );
-                    audio.volume = 0.4;
+                    audio.volume = 0.2;
                     audio.play();
                     panes.forEach(function (pane) {
                         pane.classList.add("cracked");
@@ -485,8 +485,8 @@ import p5 from 'p5';
                                     align-items: center;
                                     font-family: "Cinzel Decorative", sans-serif;
                                     font-weight: 100;
-                                    -webkit-backdrop-filter: blur(15px); /*Safari 9+ */
-                                    backdrop-filter: blur(15px); /* Chrome and Opera */
+                                    -webkit-backdrop-filter: blur(5px); /*Safari 9+ */
+                                    backdrop-filter: blur(5px); /* Chrome and Opera */
                                     // border-radius: 2px;
                                     background-color: var(--clear-glass);
 
@@ -497,12 +497,13 @@ import p5 from 'p5';
 
                                         .title-holder {
                                             color: rgba(156, 209, 220, 0.56);
-                                            width: 100%;
-                                            height: 100%;
+                                            width: calc(100% - 2px);
+                                            height: calc(100% - 2px);
                                             filter: drop-shadow(0px 0px 9px var(--soft-white));
-                                            border-top: 1px solid rgba(var(--wrgb), 0.3);
-                                            border-left: 1px solid rgba(var(--wrgb), 0.2);
-                                            border-right: 1px solid rgba(var(--wrgb), 0.1);
+                                            border-top: 1px solid rgba(var(--wrgb), 0.2);
+                                            border-left: 1px solid rgba(var(--wrgb), 0.133);
+                                            border-right: 1px solid rgba(var(--wrgb), 0.066);
+                                            border-bottom: 1px solid rgba(var(--wrgb), 0.066);
 
                                             // inset shadow got from here: https://codepen.io/adambundy/pen/AvYvQG
                                             // padding: 2rem 9.2rem 1.5rem 10.3rem;
@@ -678,12 +679,12 @@ import p5 from 'p5';
 
         #tamp {
             // remove vvv
-            display: none;
+            // display: none;
             position: absolute;
             pointer-events: none;
             // This feels wrong...
-            left: calc(-1 * var(--gPosX));
-            top: calc(-1 * var(--gPosY));
+            left: calc(-1* var(--gPosX) + -50vw + var(--braceWidth)* 0.5);
+            top: calc(-1* var(--gPosY) + -50vh + var(--braceHeight)* 0.5);
             width: 100vw;
             height: 100vw;
 
@@ -715,7 +716,7 @@ import p5 from 'p5';
             .circle-indicator {
                 position: absolute;
                 transform: translate(calc(-50% - 5px), calc(-50% - 5px));
-                height: 100px;
+                height: 175px;
                 width: 100px;
                 border-radius: 50%;
                 backdrop-filter: blur(50px);
@@ -803,7 +804,7 @@ import p5 from 'p5';
         --soft-white: #f3f3f3;
         --soft-white-T: rgba(159, 159, 159, 0.31);
         --clear-glass: rgba(156, 209, 220, 0.2);
-        --clear-glass-light: rgba(0, 215, 255, 0.1);
+        --clear-glass-light: rgba(165, 241, 255, 0.1);
         --glass-undertone: rgba(111, 206, 255, 0.13);
         --glass-edge-white: rgba(255, 255, 255, 0.33);
     

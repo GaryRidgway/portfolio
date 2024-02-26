@@ -14,6 +14,10 @@
     --warm-sun: rgb(237,232,221);
     --warm-sun-lb: rgb(213 213 213);
     --warm-sun-tb: rgb(255 245 224);
+    --yellow-paper-bg: hsl(40 81% 46% / 1);
+    --yellow-paper-left-color: #ffc028;
+    --yellow-paper-top-color: #ebbb46;
+    --yellow-paper-dark-shadow: #916700;
 
 
     --navy-blazer: rgb(29, 41, 52);

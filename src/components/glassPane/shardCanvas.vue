@@ -108,7 +108,7 @@
                             let groundHit = new Audio(
                                 "src/assets/audio/GlassGroundHit.mp3"
                             );
-                            groundHit.volume = 0.2;
+                            groundHit.volume = 0.1;
                             groundHit.play();
                         }
 
