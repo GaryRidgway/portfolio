@@ -107,6 +107,13 @@ import GlassPane from '../glassPane/glassPane.vue';
   left: -77px;
   top: -161px;
   transform: rotate(32deg);
+  filter: saturate(1.2);
+
+  // position: absolute;
+  // width: 89%;
+  // left: -19px;
+  // top: -223px;
+  // transform: rotate(231deg);
 
   img {
     width: 100%;
