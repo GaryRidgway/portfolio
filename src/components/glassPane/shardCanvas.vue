@@ -109,7 +109,7 @@
                                 "src/assets/audio/GlassGroundHit.mp3"
                             );
                             groundHit.volume = 0.1;
-                            groundHit.play();
+                            // groundHit.play();
                         }
 
                         groundAudioHasPlayed = true;
@@ -154,7 +154,7 @@
 
                     // Preliminary lower bound for the canvas.
                     canvasElement = document.querySelector("#" + canvas_data_parent + " canvas");
-                    distFromTop = window.pageYOffset + canvasElement.getBoundingClientRect().top;
+                    distFromTop = window.scrollY + canvasElement.getBoundingClientRect().top;
                     lowerBound = window.innerHeight - distFromTop + $props.shard_size;
 
                     // if the lower bound is greater than the canvas has height...
@@ -970,15 +970,15 @@
 
 <style lang="scss">
     div[id^="glassCanvas"] {
-        position: absolute;
+        position: fixed;
         pointer-events: none;
         width: 100vw;
         height: 100vh;
         // This feels wrong...
         // left: -120px;
-        left: calc(calc(-1 * var(--gPosX) + (-50vw + var(--braceWidth) * 0.5)));
+        left: 0;
         // top: -407px;
-        top: calc(calc(-1 * var(--gPosY) + (-50vh + var(--braceHeight) * 0.5)));
+        top: 0;
         // transform: translate(calc(-1 * var(--gPosX)), calc(-1 * var(--gPosY)));
         // animation: glassPush 0.3s ease-in-out forwards;
 

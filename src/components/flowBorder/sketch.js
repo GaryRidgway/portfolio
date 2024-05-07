@@ -15,7 +15,7 @@ const s1 = function (sketch) {
     sketch.numPar = function() {
         const sketchArea = sketch.windowWidth * sketch.windowHeight;
         const refArea = 360000;
-        const refParticles = 1000;
+        const refParticles = 500;
         const newParticleCount = (refParticles*sketchArea) / refArea;
         return Math.min(newParticleCount, 1500);
     }();
@@ -38,8 +38,6 @@ const s1 = function (sketch) {
     sketch.clipbox = sketch.makeClipBox();
 
     sketch.makeClipBox();
-
-
 
     sketch.zoff = 0;
     sketch.particles = [];
@@ -70,57 +68,60 @@ const s1 = function (sketch) {
 
         for (var i = 0; i < sketch.numPar; i++) {
             sketch.particles[i] = new Particle(sketch);
+
         }
         sketch.background(sketch.color(sketch.bg + '1)'));
     }
 
     sketch.draw = function () {
-        let alFun = Math.max((120 * sketch.sin((sketch.zoff * 1.5) + 2)) - 100, sketch.bga)/255;
-        if (alFun > 0) {
-            sketch.background(sketch.color(sketch.bg + alFun + ')'));
-        }
-        let trueColWidth = sketch.width/sketch.cols;
-        let trueRowHeight = sketch.height/sketch.rows;
-        var yoff = 0;
-        for (var y = 0; y < sketch.rows; y++) {
-            var xoff = 0;
-            for (var x = 0; x < sketch.cols; x++) {
-                var index = x + y * sketch.cols;
-                var angle = sketch.noise(xoff, yoff, sketch.zoff) * sketch.TWO_PI * 4;
-                var v = p5.Vector.fromAngle(angle);
-                v.setMag(1);
-                sketch.flowfield[index] = v;
-                xoff += sketch.inc;
-                if (sketch.debug && false) {
-                    sketch.push();
-                    sketch.stroke(255);
-                    sketch.translate(x*trueColWidth, y*trueRowHeight);
-                    sketch.line(0,0,v.x*10,v.y*10);
-                    sketch.pop();
-                }
+            let alFun = Math.max((120 * sketch.sin((sketch.zoff * 1.5) + 2)) - 100, sketch.bga)/255;
+            if (alFun > 0) {
+                sketch.background(sketch.color(sketch.bg + alFun + ')'));
             }
-            yoff += sketch.inc;
+            var yoff = 0;
+            for (var y = 0; y < sketch.rows; y++) {
+                var xoff = 0;
+                for (var x = 0; x < sketch.cols; x++) {
+                    var index = x + y * sketch.cols;
+                    var angle = sketch.noise(xoff, yoff, sketch.zoff) * sketch.TWO_PI * 4;
+                    var v = p5.Vector.fromAngle(angle);
+                    v.setMag(1);
+                    sketch.flowfield[index] = v;
+                    xoff += sketch.inc;
+                    if (sketch.debug) {
+                        let trueColWidth = sketch.width/sketch.cols;
+                        let trueRowHeight = sketch.height/sketch.rows;
+                        sketch.push();
+                        sketch.stroke(255);
+                        sketch.translate(x*trueColWidth, y*trueRowHeight);
+                        sketch.line(0,0,v.x*10,v.y*10);
+                        sketch.pop();
+                    }
+                }
+                yoff += sketch.inc;
 
-            sketch.zoff += sketch.zinc;
-        }
+                sketch.zoff += sketch.zinc;
+            }
 
-        for (var i = 0; i < sketch.particles.length; i++) {
-            sketch.particles[i].follow(sketch.flowfield);
-            sketch.particles[i].update();
-            sketch.particles[i].edges();
-            sketch.particles[i].show();
-        }
+            for (var i = 0; i < sketch.particles.length; i++) {
+                    sketch.particles[i].follow(sketch.flowfield);
+                    sketch.particles[i].update();
+                    sketch.particles[i].edges();
+                    sketch.particles[i].show();
+            }
 
-        if (sketch.debug) {
-            sketch.fr.html(sketch.floor(sketch.frameRate()));
-            sketch.al.html(alFun);
-        }
+            if (sketch.debug) {
+                sketch.fr.html(sketch.floor(sketch.frameRate()));
+                sketch.al.html(alFun);
+            }
     }
 
     sketch.windowResized = function() {
-        sketch.resizeCanvas(sketch.windowWidth, sketch.windowHeight);
-        sketch.clipbox = sketch.makeClipBox();
-        sketch.background(sketch.color(sketch.bg + '1)'));
+        setTimeout(() => {
+            sketch.resizeCanvas(sketch.windowWidth, sketch.windowHeight);
+            sketch.clipbox = sketch.makeClipBox();
+            sketch.background(sketch.color(sketch.bg + '1)'));
+        }, "0");
     }
 };
 

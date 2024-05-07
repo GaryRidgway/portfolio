@@ -6,13 +6,12 @@ import GlassPane from '../glassPane/glassPane.vue';
 <template>
 <div id='landing-pad'>
   <div id='measurer'></div>
-  <div id='marbled' class='paper-border'>
+  <!-- <div id='marbled' class='paper-border'>
     <img class="prevent-select" draggable="false" src='/src/assets/images/PaperTex2.png' />
   </div>
   <div class='backdrop-paper paper-border'>
     <img class="prevent-select" draggable="false" src='/src/assets/images/PaperTex2.png' />
   </div>
-  <!-- <div class='decoration'></div> -->
   <div class="ripped-fabric">
     <img class="prevent-select" draggable="false" src='/src/assets/images/FabricRippedColor.png' />
   </div>
@@ -29,20 +28,9 @@ import GlassPane from '../glassPane/glassPane.vue';
     <h1 class="step-down-shadow prevent-select">Alan Way</h1>
     <h1 class="name-clip">Alan Way</h1>
   </div>
-  <!-- <div id='details'>
-    <p>Designer</p>
-    <p>Artist</p>
-    <p>Developer</p>
-  </div> -->
-  <div class="glass-positioner">
-    <GlassPane :idPrefix='1' classes="" text='Developer'></GlassPane>
-  </div>
-  <div class="glass-positioner">
-    <GlassPane :idPrefix='2' classes="" text='Artist'></GlassPane>
-  </div>
-  <div class="glass-positioner">
-    <GlassPane :idPrefix='3' classes="" text='Performer'></GlassPane>
-  </div>
+  <GlassPane :idPrefix='"1"' classes="" text='Developer' :wave='false'></GlassPane>
+  <GlassPane :idPrefix='"2"' classes="" text='Artist' :wave='false'></GlassPane>
+  <GlassPane :idPrefix='"3"' classes="" text='Performer' :wave='false'></GlassPane> -->
 </div>
 </template>
 
@@ -72,7 +60,7 @@ import GlassPane from '../glassPane/glassPane.vue';
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  filter: var(--sm3);
+  // filter: var(--sm3);
 
   .backdrop-paper {
     width: 24%;
@@ -331,24 +319,25 @@ import GlassPane from '../glassPane/glassPane.vue';
     position: absolute;
     pointer-events: none;
 }
+</style>
 
-.fullglass{
-  &#glass1 {
-    --gPosX: -252px;
-    --gPosY: 21px;
+<style lang="scss">
+  .fullglass {
+    &#glass1 {
+      --gPosX: -30vw;
+      --gPosY: 1vh;
+    }
+
+    &#glass2 {
+      --gPosX: -28vw;
+      --gPosY: 10vh;
+    }
+
+    &#glass3 {
+      --gPosX: -26vw;
+      --gPosY: 19vh;
+    }
   }
-
-  &#glass2 {
-    --gPosX: -234px;
-    --gPosY: 86px;
-  }
-
-  &#glass3 {
-    --gPosX: -216px;
-    --gPosY: 151px;
-}
-}
-
 </style>
 
 <script>
