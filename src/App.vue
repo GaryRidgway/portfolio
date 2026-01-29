@@ -10,16 +10,16 @@ import landingPad from './components/landingPad/landingPad.vue';
 
 <template>
   <flow-border></flow-border>
-  <!-- <div class='vignette'></div> -->
-  <!-- <Menu></Menu> -->
+   <div class='vignette'></div>
+   <Menu></Menu>
   <div class='test-container'>
     <div class='test'>
       <landing-pad/>
     </div>
   </div>
-  <!-- <Background
+  <Background
     bgUrl="/src/assets/images/Rage/RageGoldMax.png"
-  /> -->
+  />
 
   
 </template>

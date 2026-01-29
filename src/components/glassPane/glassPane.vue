@@ -4,13 +4,13 @@ import glassPaneBase from './glassPaneBase.vue';
 
 <template>
     <div v-if="positioner" class="glass-positioner">
-        <!-- <glassPaneBase
+        <glassPaneBase
             :idPrefix='idPrefix' :classes="classes" :text='text' :wave='wave'
-        /> -->
+        />
     </div>
-    <!-- <glassPaneBase v-else
+    <glassPaneBase v-else
         :idPrefix='idPrefix' :classes="classes" :text='text' :wave='wave'
-    /> -->
+    />
 </template>
 
 <script>

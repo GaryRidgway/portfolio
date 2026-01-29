@@ -6,7 +6,7 @@ import GlassPane from '../glassPane/glassPane.vue';
 <template>
 <div id='landing-pad'>
   <div id='measurer'></div>
-  <!-- <div id='marbled' class='paper-border'>
+  <div id='marbled' class='paper-border'>
     <img class="prevent-select" draggable="false" src='/src/assets/images/PaperTex2.png' />
   </div>
   <div class='backdrop-paper paper-border'>
@@ -30,7 +30,7 @@ import GlassPane from '../glassPane/glassPane.vue';
   </div>
   <GlassPane :idPrefix='"1"' classes="" text='Developer' :wave='false'></GlassPane>
   <GlassPane :idPrefix='"2"' classes="" text='Artist' :wave='false'></GlassPane>
-  <GlassPane :idPrefix='"3"' classes="" text='Performer' :wave='false'></GlassPane> -->
+  <GlassPane :idPrefix='"3"' classes="" text='Performer' :wave='false'></GlassPane>
 </div>
 </template>
 
